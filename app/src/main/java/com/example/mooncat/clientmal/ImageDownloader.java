@@ -9,13 +9,13 @@ import java.io.InputStream;
 import java.net.URL;
 
 
-public class ImageDownloader extends AsyncTask<String, Void, Bitmap> {
+class ImageDownloader extends AsyncTask<String, Void, Bitmap> {
 
-    public ImageDownloader(Listener listener) {
+    ImageDownloader(Listener listener) {
         mListener = listener;
     }
 
-    public interface Listener {
+    interface Listener {
         void onImageLoaded(Bitmap bitmap);
         void onError();
     }

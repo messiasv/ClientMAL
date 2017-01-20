@@ -13,17 +13,17 @@ import android.widget.Toast;
 
 import java.util.List;
 
-public class MangaAdapter extends ArrayAdapter<Manga> implements ImageDownloader.Listener {
+class MangaAdapter extends ArrayAdapter<Manga> implements ImageDownloader.Listener {
 
     private ImageView mImage;
 
-    public MangaAdapter(Context context, int resource, List<Manga> objects) {
+    MangaAdapter(Context context, int resource, List<Manga> objects) {
         super(context, resource, objects);
     }
 
     @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View root = inflater.inflate(R.layout.item, null);
         Manga manga = getItem(position);
@@ -33,10 +33,10 @@ public class MangaAdapter extends ArrayAdapter<Manga> implements ImageDownloader
         mImage = (ImageView) root.findViewById(R.id.imageView);
 //        ImageView image = (ImageView) root.findViewById(R.id.mangaViewImage);
 
-        title.setText(manga.getTitle());
-        status.setText(manga.getStatus());
-        type.setText(manga.getType());
-        new ImageDownloader(this).execute(manga.getImage());
+        title.setText(manga != null ? manga.getTitle() : null);
+        status.setText(manga != null ? manga.getStatus() : null);
+        type.setText(manga != null ? manga.getType() : null);
+        new ImageDownloader(this).execute(manga != null ? manga.getImage() : null);
         return root;
     }
 

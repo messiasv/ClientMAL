@@ -9,9 +9,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedList;
 
-public class AnimeParserXML {
+class AnimeParserXML {
 
-    public static LinkedList<Anime> parseList(String xml)throws XmlPullParserException, IOException {
+    static LinkedList<Anime> parseList(String xml)throws XmlPullParserException, IOException {
         XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
         XmlPullParser parser = factory.newPullParser();
 
@@ -20,10 +20,8 @@ public class AnimeParserXML {
         int compt=0;
         LinkedList<Anime> animeList = new LinkedList<>();
         int eventType = parser.getEventType();
-        while (eventType != parser.END_DOCUMENT) {
-            if (eventType == parser.START_DOCUMENT) {
-            } else if (eventType == parser.END_DOCUMENT) {
-            } else if (eventType == parser.START_TAG) {
+        while (eventType != XmlPullParser.END_DOCUMENT) {
+            if (eventType == XmlPullParser.START_TAG) {
                 switch (parser.getName()){
                     case "anime":
                         animeList.add(new Anime()); break;
@@ -44,11 +42,10 @@ public class AnimeParserXML {
                         animeList.get(compt).setImage(parser.getText());
                         break;
                 }
-            } else if (eventType == parser.END_TAG) {
+            } else if (eventType == XmlPullParser.END_TAG) {
                 if(parser.getName().equals("anime")){
                     compt++;
                 }
-            } else if (eventType == parser.TEXT) {
             }
             eventType = parser.next();
         }

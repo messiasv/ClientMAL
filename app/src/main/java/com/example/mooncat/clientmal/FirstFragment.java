@@ -28,28 +28,18 @@ import java.util.LinkedList;
  * A simple {@link Fragment} subclass.
  */
 public class FirstFragment extends Fragment {
-    // Store instance variables
-    private String title;
-    private int page;
     LinkedList<Anime> animeList;
     ArrayAdapter<Anime> adapter;
 
     // newInstance constructor for creating fragment with arguments
-    public static FirstFragment newInstance(int page, String title) {
-        FirstFragment fragmentFirst = new FirstFragment();
-        Bundle args = new Bundle();
-        args.putInt("someInt", page);
-        args.putString("someTitle", title);
-        fragmentFirst.setArguments(args);
-        return fragmentFirst;
+    public static FirstFragment newInstance() {
+        return new FirstFragment();
     }
 
     // Store instance variables based on arguments passed
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        page = getArguments().getInt("someInt", 0);
-        title = getArguments().getString("someTitle");
         animeList = new LinkedList<>();
 
         RequestQueue queue = Volley.newRequestQueue(getContext());
@@ -59,17 +49,10 @@ public class FirstFragment extends Fragment {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        String result = response;
                         try {
-                            animeList.addAll(AnimeParserXML.parseList(result));
-                            for(Anime anime : animeList){
-//                                System.out.println(anime.toString());
-                            }
-
+                            animeList.addAll(AnimeParserXML.parseList(response));
                             adapter.notifyDataSetChanged();
-                        } catch (XmlPullParserException e) {
-                            e.printStackTrace();
-                        } catch (IOException e) {
+                        } catch (XmlPullParserException | IOException e) {
                             e.printStackTrace();
                         }
 
@@ -104,8 +87,6 @@ public class FirstFragment extends Fragment {
         });
         adapter = new AnimeAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, animeList);
         listView.setAdapter(adapter);
-//        TextView tvLabel = (TextView) view.findViewById(R.id.tvLabel); // TODO : change
-//        tvLabel.setText(page + " -- " + title);
         return view;
     }
 }

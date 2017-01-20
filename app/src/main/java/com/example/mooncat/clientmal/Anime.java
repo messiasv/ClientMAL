@@ -1,92 +1,47 @@
 package com.example.mooncat.clientmal;
 
-public class Anime {
-    private String title;
-    private String status;
-    private String type;
-    private String image;
-
-    public Anime() {
-    }
-
-    public Anime(String title, String status, String type, String image) {
-        this.title = title;
-        this.status = status;
-        this.type = type;
-        this.image = image;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
+class Anime extends Media {
     public void setStatus(String status) {
         switch (status) {
             case "1":
-                this.status = "watching";
+                this.setStatus("Airing");
                 break;
             case "2":
-                this.status = "completed";
+                this.setStatus("Finished");
                 break;
             case "3":
-                this.status = "onhold";
-                break;
-            case "4":
-                this.status = "dropped";
-                break;
-            case "6":
-                this.status = "plantowatch";
+                this.setStatus("Not yet aired");
                 break;
             default:
-                this.status = status;
+                super.setStatus(status);
         }
     }
 
     public void setType(String type) {
         switch (type) {
             case "0":
-                this.type = "Unknown";
+                this.setType("Unknown");
                 break;
             case "1":
-                this.type = "TV";
+                this.setType("TV");
                 break;
             case "2":
-                this.type = "OVA";
+                this.setType("OVA");
                 break;
             case "3":
-                this.type = "Movie";
+                this.setType("Movie");
                 break;
             case "4":
-                this.type = "Special";
+                this.setType("Special");
                 break;
             case "5":
-                this.type = "ONA";
+                this.setType("ONA");
                 break;
             case "6":
-                this.type = "Music";
+                this.setType("Music");
                 break;
             default:
-                this.type = type;
+                super.setType(type);
         }
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public String getImage() {
-        return image;
     }
 }

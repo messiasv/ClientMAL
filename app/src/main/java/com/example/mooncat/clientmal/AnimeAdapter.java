@@ -14,16 +14,16 @@ import android.widget.Toast;
 import java.util.List;
 
 
-public class AnimeAdapter extends ArrayAdapter<Anime> implements ImageDownloader.Listener {
+class AnimeAdapter extends ArrayAdapter<Anime> implements ImageDownloader.Listener {
 
     private ImageView mImage;
-    public AnimeAdapter(Context context, int resource, List<Anime> objects) {
+    AnimeAdapter(Context context, int resource, List<Anime> objects) {
         super(context, resource, objects);
     }
 
-    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    @NonNull
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View root = inflater.inflate(R.layout.item, null);
         Anime anime = getItem(position);
@@ -33,10 +33,18 @@ public class AnimeAdapter extends ArrayAdapter<Anime> implements ImageDownloader
         mImage = (ImageView) root.findViewById(R.id.imageView);
         System.out.println(mImage.toString());
 
-        title.setText(anime.getTitle());
-        status.setText(anime.getStatus());
-        type.setText(anime.getType());
-        new ImageDownloader(this).execute(anime.getImage());
+        if (anime != null) {
+            title.setText(anime.getTitle());
+        }
+        if (anime != null) {
+            status.setText(anime.getStatus());
+        }
+        if (anime != null) {
+            type.setText(anime.getType());
+        }
+        if (anime != null) {
+            new ImageDownloader(this).execute(anime.getImage());
+        }
         return root;
     }
 

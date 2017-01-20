@@ -28,28 +28,18 @@ import java.util.LinkedList;
  * A simple {@link Fragment} subclass.
  */
 public class SecondFragment extends Fragment {
-    // Store instance variables
-    private String title;
-    private int page;
     LinkedList<Manga> mangaList;
     ArrayAdapter<Manga> adapter;
 
     // newInstance constructor for creating fragment with arguments
-    public static SecondFragment newInstance(int page, String title) {
-        SecondFragment fragmentSecond = new SecondFragment();
-        Bundle args = new Bundle();
-        args.putInt("someInt", page);
-        args.putString("someTitle", title);
-        fragmentSecond.setArguments(args);
-        return fragmentSecond;
+    public static SecondFragment newInstance() {
+       return  new SecondFragment();
     }
 
     // Store instance variables based on arguments passed
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        page = getArguments().getInt("someInt", 0);
-        title = getArguments().getString("someTitle");
         mangaList = new LinkedList<>();
 
         RequestQueue queue = Volley.newRequestQueue(getContext());
@@ -59,17 +49,10 @@ public class SecondFragment extends Fragment {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        String result = response;
                         try {
-                            mangaList.addAll(MangaParserXML.parseList(result));
-                            for(Manga manga : mangaList){
-//                                System.out.println(manga.toString());
-                            }
-
+                            mangaList.addAll(MangaParserXML.parseList(response));
                             adapter.notifyDataSetChanged();
-                        } catch (XmlPullParserException e) {
-                            e.printStackTrace();
-                        } catch (IOException e) {
+                        } catch (XmlPullParserException | IOException e) {
                             e.printStackTrace();
                         }
 
@@ -102,11 +85,8 @@ public class SecondFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        mangaList = new LinkedList<>();
         adapter = new MangaAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, mangaList);
         listView.setAdapter(adapter);
-//        TextView tvLabel = (TextView) view.findViewById(R.id.tvLabel); // TODO: change this
-//        tvLabel.setText(page + " -- " + title);
         return view;
     }
 

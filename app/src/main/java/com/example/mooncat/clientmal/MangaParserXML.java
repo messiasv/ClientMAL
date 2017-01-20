@@ -10,9 +10,9 @@ import java.io.InputStream;
 import java.util.LinkedList;
 
 
-public class MangaParserXML {
+class MangaParserXML {
 
-    public static LinkedList<Manga> parseList(String xml)throws XmlPullParserException, IOException {
+    static LinkedList<Manga> parseList(String xml)throws XmlPullParserException, IOException {
         XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
         XmlPullParser parser = factory.newPullParser();
 
@@ -21,10 +21,8 @@ public class MangaParserXML {
         int compt=0;
         LinkedList<Manga> mangaList = new LinkedList<>();
         int eventType = parser.getEventType();
-        while (eventType != parser.END_DOCUMENT) {
-            if (eventType == parser.START_DOCUMENT) {
-            } else if (eventType == parser.END_DOCUMENT) {
-            } else if (eventType == parser.START_TAG) {
+        while (eventType != XmlPullParser.END_DOCUMENT) {
+             if (eventType == XmlPullParser.START_TAG) {
                 switch (parser.getName()){
                     case "manga":
                         mangaList.add(new Manga()); break;
@@ -45,11 +43,10 @@ public class MangaParserXML {
                         mangaList.get(compt).setImage(parser.getText());
                         break;
                 }
-            } else if (eventType == parser.END_TAG) {
+            } else if (eventType == XmlPullParser.END_TAG) {
                 if(parser.getName().equals("manga")){
                     compt++;
                 }
-            } else if (eventType == parser.TEXT) {
             }
             eventType = parser.next();
         }
