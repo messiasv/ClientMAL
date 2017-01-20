@@ -10,9 +10,17 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import java.net.URL;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.IOException;
 import java.util.LinkedList;
 
 
@@ -24,6 +32,7 @@ public class SecondFragment extends Fragment {
     private String title;
     private int page;
     LinkedList<Manga> mangaList;
+    ArrayAdapter<Manga> adapter;
 
     // newInstance constructor for creating fragment with arguments
     public static SecondFragment newInstance(int page, String title) {
@@ -41,6 +50,37 @@ public class SecondFragment extends Fragment {
         super.onCreate(savedInstanceState);
         page = getArguments().getInt("someInt", 0);
         title = getArguments().getString("someTitle");
+        mangaList = new LinkedList<>();
+
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+        String url = "https://myanimelist.net/malappinfo.php?u=rinnetsu&status=all&type=manga";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        String result = response;
+                        try {
+                            mangaList.addAll(MangaParserXML.parseList(result));
+                            for(Manga manga : mangaList){
+//                                System.out.println(manga.toString());
+                            }
+
+                            adapter.notifyDataSetChanged();
+                        } catch (XmlPullParserException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        });
+        queue.add(stringRequest);
     }
 
     // Inflate the view for the fragment based on layout XML
@@ -63,23 +103,7 @@ public class SecondFragment extends Fragment {
             }
         });
         mangaList = new LinkedList<>();
-        mangaList.add(new Manga("Death Note", "completed", "Manga", "https://myanimelist.cdn-dena.com/images/manga/2/54453.jpg"));
-        mangaList.add(new Manga("神のみぞ知るセカイ", "airing", "Manga", "https://myanimelist.cdn-dena.com/images/manga/2/188974.jpg"));
-        mangaList.add(new Manga("神のみぞ知るセカイ", "airing", "Manga", "https://myanimelist.cdn-dena.com/images/manga/2/188974.jpg"));
-        mangaList.add(new Manga("神のみぞ知るセカイ", "airing", "Manga", "https://myanimelist.cdn-dena.com/images/manga/2/188974.jpg"));
-        mangaList.add(new Manga("神のみぞ知るセカイ", "airing", "Manga", "https://myanimelist.cdn-dena.com/images/manga/2/188974.jpg"));
-        mangaList.add(new Manga("神のみぞ知るセカイ", "airing", "Manga", "https://myanimelist.cdn-dena.com/images/manga/2/188974.jpg"));
-        mangaList.add(new Manga("神のみぞ知るセカイ", "airing", "Manga", "https://myanimelist.cdn-dena.com/images/manga/2/188974.jpg"));
-        mangaList.add(new Manga("神のみぞ知るセカイ", "airing", "Manga", "https://myanimelist.cdn-dena.com/images/manga/2/188974.jpg"));
-        mangaList.add(new Manga("神のみぞ知るセカイ", "airing", "Manga", "https://myanimelist.cdn-dena.com/images/manga/2/188974.jpg"));
-        mangaList.add(new Manga("神のみぞ知るセカイ", "airing", "Manga", "https://myanimelist.cdn-dena.com/images/manga/2/188974.jpg"));
-        mangaList.add(new Manga("神のみぞ知るセカイ", "airing", "Manga", "https://myanimelist.cdn-dena.com/images/manga/2/188974.jpg"));
-        mangaList.add(new Manga("神のみぞ知るセカイ", "airing", "Manga", "https://myanimelist.cdn-dena.com/images/manga/2/188974.jpg"));
-        mangaList.add(new Manga("神のみぞ知るセカイ", "airing", "Manga", "https://myanimelist.cdn-dena.com/images/manga/2/188974.jpg"));
-        mangaList.add(new Manga("神のみぞ知るセカイ", "airing", "Manga", "https://myanimelist.cdn-dena.com/images/manga/2/188974.jpg"));
-        mangaList.add(new Manga("神のみぞ知るセカイ", "airing", "Manga", "https://myanimelist.cdn-dena.com/images/manga/2/188974.jpg"));
-        mangaList.add(new Manga("神のみぞ知るセカイ", "airing", "Manga", "https://myanimelist.cdn-dena.com/images/manga/2/188974.jpg"));
-        ArrayAdapter<Manga> adapter = new MangaAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, mangaList);
+        adapter = new MangaAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, mangaList);
         listView.setAdapter(adapter);
 //        TextView tvLabel = (TextView) view.findViewById(R.id.tvLabel); // TODO: change this
 //        tvLabel.setText(page + " -- " + title);

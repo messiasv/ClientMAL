@@ -44,6 +44,9 @@ public class Anime {
 
     public void setType(String type) {
         switch (type) {
+            case "0":
+                this.type = "Unknown";
+                break;
             case "1":
                 this.type = "TV";
                 break;
@@ -55,6 +58,12 @@ public class Anime {
                 break;
             case "4":
                 this.type = "Special";
+                break;
+            case "5":
+                this.type = "ONA";
+                break;
+            case "6":
+                this.type = "Music";
                 break;
             default:
                 this.type = type;

@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -54,7 +53,7 @@ public class FirstFragment extends Fragment {
         animeList = new LinkedList<>();
 
         RequestQueue queue = Volley.newRequestQueue(getContext());
-        String url = "https://myanimelist.net/malappinfo.php?u=Uwhipa&status=all&type=anime";
+        String url = "https://myanimelist.net/malappinfo.php?u=rinnetsu&status=all&type=anime";
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
@@ -62,7 +61,7 @@ public class FirstFragment extends Fragment {
                     public void onResponse(String response) {
                         String result = response;
                         try {
-                            animeList.addAll(ParserXml.parseList(result));
+                            animeList.addAll(AnimeParserXML.parseList(result));
                             for(Anime anime : animeList){
 //                                System.out.println(anime.toString());
                             }
@@ -103,20 +102,6 @@ public class FirstFragment extends Fragment {
                 startActivity(intent);
             }
         });
-//        animeList.add(new Anime("Death Parade", "completed", "Manga", "https://myanimelist.cdn-dena.com/images/anime/5/71553.jpg"));
-//        animeList.add(new Anime("Code Geass", "airing", "Manga", "https://myanimelist.cdn-dena.com/images/anime/5/50331.jpg"));
-//        animeList.add(new Anime("Code Geass", "airing", "Manga", "https://myanimelist.cdn-dena.com/images/anime/5/50331.jpg"));
-//        animeList.add(new Anime("Code Geass", "airing", "Manga", "https://myanimelist.cdn-dena.com/images/anime/5/50331.jpg"));
-//        animeList.add(new Anime("Code Geass", "airing", "Manga", "https://myanimelist.cdn-dena.com/images/anime/5/50331.jpg"));
-//        animeList.add(new Anime("Code Geass", "airing", "Manga", "https://myanimelist.cdn-dena.com/images/anime/5/50331.jpg"));
-//        animeList.add(new Anime("Code Geass", "airing", "Manga", "https://myanimelist.cdn-dena.com/images/anime/5/50331.jpg"));
-//        animeList.add(new Anime("Code Geass", "airing", "Manga", "https://myanimelist.cdn-dena.com/images/anime/5/50331.jpg"));
-//        animeList.add(new Anime("Code Geass", "airing", "Manga", "https://myanimelist.cdn-dena.com/images/anime/5/50331.jpg"));
-//        animeList.add(new Anime("Code Geass", "airing", "Manga", "https://myanimelist.cdn-dena.com/images/anime/5/50331.jpg"));
-//        animeList.add(new Anime("Code Geass", "airing", "Manga", "https://myanimelist.cdn-dena.com/images/anime/5/50331.jpg"));
-//        animeList.add(new Anime("Code Geass", "airing", "Manga", "https://myanimelist.cdn-dena.com/images/anime/5/50331.jpg"));
-//        animeList.add(new Anime("Code Geass", "airing", "Manga", "https://myanimelist.cdn-dena.com/images/anime/5/50331.jpg"));
-//        animeList.add(new Anime("Code Geass", "airing", "Manga", "https://myanimelist.cdn-dena.com/images/anime/5/50331.jpg"));
         adapter = new AnimeAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, animeList);
         listView.setAdapter(adapter);
 //        TextView tvLabel = (TextView) view.findViewById(R.id.tvLabel); // TODO : change
