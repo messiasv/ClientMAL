@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Client MAL</string>
+
+    <!-- TODO: Remove these placeholder text -->
+    <string name="anime_list">Anime List</string>
+    <string name="manga_list">Manga List</string>
+</resources>
