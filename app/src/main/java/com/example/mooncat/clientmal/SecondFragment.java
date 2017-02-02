@@ -32,10 +32,6 @@ public class SecondFragment extends Fragment {
     ArrayAdapter<Manga> adapter;
     protected String mUsername;
 
-    public void setmUsername(String mUsername) {
-        this.mUsername = mUsername;
-    }
-
     // newInstance constructor for creating fragment with arguments
     public static SecondFragment newInstance(String username) {
         SecondFragment secondFragment = new SecondFragment();

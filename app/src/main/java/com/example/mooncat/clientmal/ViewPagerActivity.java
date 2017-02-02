@@ -1,5 +1,6 @@
 package com.example.mooncat.clientmal;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -7,25 +8,19 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 public class ViewPagerActivity extends AppCompatActivity {
     private static final String TAG = "ViewPagerActivity";
     MyPagerAdapter adapterViewPager;
-    private String mUsername;
-
-    public String getmUsername() {
-        return mUsername;
-    }
 
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_pager);
-        mUsername = getIntent().getStringExtra("username");
+        String mUsername = getIntent().getStringExtra("username");
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
-        adapterViewPager = new MyPagerAdapter(getSupportFragmentManager(), mUsername);
+        adapterViewPager = new MyPagerAdapter(getSupportFragmentManager(), mUsername, getApplicationContext());
         viewPager.setAdapter(adapterViewPager);
         Log.i(TAG, mUsername);
     }
@@ -34,10 +29,12 @@ public class ViewPagerActivity extends AppCompatActivity {
         private static final String TAG = "MyPagerAdapter";
         private static int NUM_ITEMS = 2;
         private final String mUsername;
+        private final Context mContext;
 
-        MyPagerAdapter(FragmentManager fragmentManager, String username) {
+        MyPagerAdapter(FragmentManager fragmentManager, String username, Context context) {
             super(fragmentManager);
             this.mUsername = username;
+            this.mContext = context;
             Log.wtf(TAG, (username != null) ? username : "username NULL !!!!!");
         }
 
@@ -67,9 +64,9 @@ public class ViewPagerActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "Anime";
+                    return mContext.getString(R.string.anime);
                 case 1:
-                    return "Manga";
+                    return mContext.getString(R.string.manga);
                 default:
                     return "";
             }

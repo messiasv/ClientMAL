@@ -1,7 +1,5 @@
 package com.example.mooncat.clientmal;
 
-
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -34,10 +32,6 @@ public class FirstFragment extends Fragment {
     LinkedList<Anime> animeList;
     ArrayAdapter<Anime> adapter;
     protected String  mUsername;
-
-    public void setmUsername(String username) {
-        this.mUsername = username;
-    }
 
     // newInstance constructor for creating fragment with arguments
     public static FirstFragment newInstance(String username) {

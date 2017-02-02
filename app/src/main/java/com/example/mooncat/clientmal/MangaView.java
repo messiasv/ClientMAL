@@ -7,8 +7,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
-
 public class MangaView extends AppCompatActivity implements ImageDownloader.Listener {
 
     ImageView mImageView;

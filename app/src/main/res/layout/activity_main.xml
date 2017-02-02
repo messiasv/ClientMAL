@@ -14,16 +14,19 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Enter your myanimelist.net account name !" />
+        android:text="@string/myanimelist_account_username_hint"
+        android:labelFor="@+id/MAL_login" />
 
     <EditText
         android:id="@+id/MAL_login"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="@string/username_hint" />
 
     <Button
         android:id="@+id/send_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Show"/>
+        android:text="@string/show_list_button"/>
 </LinearLayout>

@@ -1,7 +1,11 @@
 <resources>
     <string name="app_name">Client MAL</string>
 
-    <!-- TODO: Remove these placeholder text -->
     <string name="anime_list">Anime List</string>
     <string name="manga_list">Manga List</string>
+    <string name="myanimelist_account_username_hint">Enter your myanimelist.net account username !</string>
+    <string name="show_list_button">Show</string>
+    <string name="username_hint">username</string>
+    <string name="anime">Anime</string>
+    <string name="manga">Manga</string>
 </resources>
