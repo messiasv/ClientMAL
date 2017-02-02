@@ -6,24 +6,39 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 public class ViewPagerActivity extends AppCompatActivity {
-    FragmentPagerAdapter adapterViewPager;
+    private static final String TAG = "ViewPagerActivity";
+    MyPagerAdapter adapterViewPager;
+    private String mUsername;
+
+    public String getmUsername() {
+        return mUsername;
+    }
 
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_pager);
+        mUsername = getIntent().getStringExtra("username");
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
-        adapterViewPager = new MyPagerAdapter(getSupportFragmentManager());
+        adapterViewPager = new MyPagerAdapter(getSupportFragmentManager(), mUsername);
         viewPager.setAdapter(adapterViewPager);
+        Log.i(TAG, mUsername);
     }
 
     public static class MyPagerAdapter extends FragmentPagerAdapter {
+        private static final String TAG = "MyPagerAdapter";
         private static int NUM_ITEMS = 2;
+        private final String mUsername;
 
-        MyPagerAdapter(FragmentManager fragmentManager) {
+        MyPagerAdapter(FragmentManager fragmentManager, String username) {
             super(fragmentManager);
+            this.mUsername = username;
+            Log.wtf(TAG, (username != null) ? username : "username NULL !!!!!");
         }
 
         // Returns total number of pages
@@ -35,11 +50,13 @@ public class ViewPagerActivity extends AppCompatActivity {
         // Returns the fragment to display for that page
         @Override
         public Fragment getItem(int position) {
+//            Log.e(TAG, mUsername);
             switch (position) {
                 case 0: // Fragment # 0 - This will show FirstFragment
-                    return FirstFragment.newInstance();
+                    return FirstFragment.newInstance(mUsername);
+
                 case 1: // Fragment # 1 - This will show SecondFragment
-                    return SecondFragment.newInstance();
+                    return SecondFragment.newInstance(mUsername);
                 default:
                     return null;
             }

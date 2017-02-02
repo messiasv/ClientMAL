@@ -30,10 +30,19 @@ import java.util.LinkedList;
 public class SecondFragment extends Fragment {
     LinkedList<Manga> mangaList;
     ArrayAdapter<Manga> adapter;
+    protected String mUsername;
+
+    public void setmUsername(String mUsername) {
+        this.mUsername = mUsername;
+    }
 
     // newInstance constructor for creating fragment with arguments
-    public static SecondFragment newInstance() {
-       return  new SecondFragment();
+    public static SecondFragment newInstance(String username) {
+        SecondFragment secondFragment = new SecondFragment();
+        final Bundle args = new Bundle();
+        args.putString("username", username);
+        secondFragment.setArguments(args);
+        return  secondFragment;
     }
 
     // Store instance variables based on arguments passed
@@ -41,9 +50,10 @@ public class SecondFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mangaList = new LinkedList<>();
+        mUsername = getArguments().getString("username");
 
         RequestQueue queue = Volley.newRequestQueue(getContext());
-        String url = "https://myanimelist.net/malappinfo.php?u=rinnetsu&status=all&type=manga";
+        String url = "https://myanimelist.net/malappinfo.php?u=" + mUsername + "&status=all&type=manga";
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {

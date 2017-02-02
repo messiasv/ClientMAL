@@ -1,9 +1,11 @@
 package com.example.mooncat.clientmal;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,12 +30,22 @@ import java.util.LinkedList;
  * A simple {@link Fragment} subclass.
  */
 public class FirstFragment extends Fragment {
+    private static final String TAG = "FirstFragment";
     LinkedList<Anime> animeList;
     ArrayAdapter<Anime> adapter;
+    protected String  mUsername;
+
+    public void setmUsername(String username) {
+        this.mUsername = username;
+    }
 
     // newInstance constructor for creating fragment with arguments
-    public static FirstFragment newInstance() {
-        return new FirstFragment();
+    public static FirstFragment newInstance(String username) {
+        FirstFragment firstFragment = new FirstFragment();
+        final Bundle args = new Bundle();
+        args.putString("username", username);
+        firstFragment.setArguments(args);
+        return firstFragment;
     }
 
     // Store instance variables based on arguments passed
@@ -41,9 +53,11 @@ public class FirstFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         animeList = new LinkedList<>();
+        mUsername = getArguments().getString("username");
 
         RequestQueue queue = Volley.newRequestQueue(getContext());
-        String url = "https://myanimelist.net/malappinfo.php?u=rinnetsu&status=all&type=anime";
+        String url = "https://myanimelist.net/malappinfo.php?u=" + mUsername + "&status=all&type=anime";
+        Log.i(TAG, url);
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
