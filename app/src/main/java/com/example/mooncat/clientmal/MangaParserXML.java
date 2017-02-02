@@ -27,19 +27,19 @@ class MangaParserXML {
                     case "manga":
                         mangaList.add(new Manga()); break;
                     case "series_title":
-                        eventType = parser.next();
+                        parser.next();
                         mangaList.get(compt).setTitle(parser.getText());
                         break;
                     case "series_type":
-                        eventType = parser.next();
+                        parser.next();
                         mangaList.get(compt).setType(parser.getText());
                         break;
                     case "series_status":
-                        eventType = parser.next();
+                        parser.next();
                         mangaList.get(compt).setStatus(parser.getText());
                         break;
                     case "series_image":
-                        eventType = parser.next();
+                        parser.next();
                         mangaList.get(compt).setImage(parser.getText());
                         break;
                 }

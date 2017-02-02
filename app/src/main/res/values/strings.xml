@@ -8,4 +8,5 @@
     <string name="username_hint">username</string>
     <string name="anime">Anime</string>
     <string name="manga">Manga</string>
+    <string name="image_desc">cover of the media</string>
 </resources>

@@ -26,7 +26,8 @@
             android:layout_width="150dp"
             android:layout_height="225dp"
             app:srcCompat="@color/colorPrimary"
-            android:id="@+id/mangaViewImage" />
+            android:id="@+id/mangaViewImage"
+            android:contentDescription="@string/image_desc"/>
 
         <LinearLayout
             android:layout_width="match_parent"
