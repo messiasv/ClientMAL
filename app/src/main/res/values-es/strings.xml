@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Client MAL</string>
+    <string name="anime">Anime</string>
+    <string name="anime_list">Lista de animes</string>
+    <string name="image_desc">imagen del media</string>
+    <string name="manga">Manga</string>
+    <string name="manga_list">Lista de Mangas</string>
+    <string name="myanimelist_account_username_hint">Introduzca el nombre de usuario de su cuenta myanimelist.net !</string>
+    <string name="username_hint">nombre de usuario</string>
+    <string name="show_list_button">Mostrar</string>
+</resources>
