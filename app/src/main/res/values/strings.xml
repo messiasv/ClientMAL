@@ -9,4 +9,5 @@
     <string name="anime">Anime</string>
     <string name="manga">Manga</string>
     <string name="image_desc">cover of the media</string>
+    <string name="user_name_not_found_message">User not found !</string>
 </resources>

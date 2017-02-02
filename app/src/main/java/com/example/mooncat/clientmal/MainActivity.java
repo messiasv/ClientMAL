@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 } else {
                     Log.i(TAG, "User doesn't exist !!");
-                    publishProgress("username not found");
+                    publishProgress(getString(R.string.user_name_not_found_message));
                     return false;
                 }
             } catch (Exception e) {

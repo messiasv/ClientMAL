@@ -9,4 +9,5 @@
     <string name="show_list_button">Montrer</string>
     <string name="username_hint">nom d\'utilisateur</string>
     <string name="app_name">Client MAL</string>
+    <string name="user_name_not_found_message">Utilisateur introuvable !</string>
 </resources>

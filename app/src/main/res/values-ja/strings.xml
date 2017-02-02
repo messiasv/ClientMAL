@@ -9,4 +9,5 @@
     <string name="image_desc">メディアイメージ</string>
     <string name="show_list_button">見せる</string>
     <string name="myanimelist_account_username_hint">あなたのmyanimelist.netアカウントのユーザー名を入力して下さい！</string>
+    <string name="user_name_not_found_message">ユーザーが見つかりません！</string>
 </resources>
