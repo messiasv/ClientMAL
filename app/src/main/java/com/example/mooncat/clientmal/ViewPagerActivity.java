@@ -49,11 +49,11 @@ public class ViewPagerActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
 //            Log.e(TAG, mUsername);
             switch (position) {
-                case 0: // Fragment # 0 - This will show FirstFragment
-                    return FirstFragment.newInstance(mUsername);
+                case 0: // Fragment # 0 - This will show AnimeListFragment
+                    return AnimeListFragment.newInstance(mUsername);
 
-                case 1: // Fragment # 1 - This will show SecondFragment
-                    return SecondFragment.newInstance(mUsername);
+                case 1: // Fragment # 1 - This will show MangaListFragment
+                    return MangaListFragment.newInstance(mUsername);
                 default:
                     return null;
             }

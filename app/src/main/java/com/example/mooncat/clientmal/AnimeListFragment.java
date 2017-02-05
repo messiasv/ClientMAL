@@ -1,9 +1,9 @@
 package com.example.mooncat.clientmal;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,36 +27,38 @@ import java.util.LinkedList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SecondFragment extends Fragment {
-    LinkedList<Manga> mangaList;
-    ArrayAdapter<Manga> adapter;
-    protected String mUsername;
+public class AnimeListFragment extends Fragment {
+    private static final String TAG = "AnimeListFragment";
+    LinkedList<Anime> animeList;
+    ArrayAdapter<Anime> adapter;
+    protected String  mUsername;
 
     // newInstance constructor for creating fragment with arguments
-    public static SecondFragment newInstance(String username) {
-        SecondFragment secondFragment = new SecondFragment();
+    public static AnimeListFragment newInstance(String username) {
+        AnimeListFragment animeListFragment = new AnimeListFragment();
         final Bundle args = new Bundle();
         args.putString("username", username);
-        secondFragment.setArguments(args);
-        return  secondFragment;
+        animeListFragment.setArguments(args);
+        return animeListFragment;
     }
 
     // Store instance variables based on arguments passed
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mangaList = new LinkedList<>();
+        animeList = new LinkedList<>();
         mUsername = getArguments().getString("username");
 
         RequestQueue queue = Volley.newRequestQueue(getContext());
-        String url = "https://myanimelist.net/malappinfo.php?u=" + mUsername + "&status=all&type=manga";
+        String url = "https://myanimelist.net/malappinfo.php?u=" + mUsername + "&status=all&type=anime";
+        Log.i(TAG, url);
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            mangaList.addAll(MangaParserXML.parseList(response));
+                            animeList.addAll(AnimeParserXML.parseList(response));
                             adapter.notifyDataSetChanged();
                         } catch (XmlPullParserException | IOException e) {
                             e.printStackTrace();
@@ -81,19 +83,18 @@ public class SecondFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity(), MangaViewActivity.class);
+                Intent intent = new Intent(getActivity(), AnimeViewActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("title", ((Manga)parent.getItemAtPosition(position)).getTitle());
-                bundle.putString("status", ((Manga)parent.getItemAtPosition(position)).getStatus());
-                bundle.putString("type", ((Manga)parent.getItemAtPosition(position)).getType());
-                bundle.putString("image", ((Manga)parent.getItemAtPosition(position)).getImage());
+                bundle.putString("title", ((Anime)parent.getItemAtPosition(position)).getTitle());
+                bundle.putString("status", ((Anime)parent.getItemAtPosition(position)).getStatus());
+                bundle.putString("type", ((Anime)parent.getItemAtPosition(position)).getType());
+                bundle.putString("image", ((Anime)parent.getItemAtPosition(position)).getImage());
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
-        adapter = new MangaAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, mangaList);
+        adapter = new AnimeAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item, animeList);
         listView.setAdapter(adapter);
         return view;
     }
-
 }
