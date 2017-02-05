@@ -20,8 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ViewPagerActivity" />
-        <activity android:name=".AnimeView" />
-        <activity android:name=".MangaView" />
+        <activity android:name=".AnimeViewActivity" />
+        <activity android:name=".MangaViewActivity" />
         <activity android:name=".UserSelectorActivity"></activity>
     </application>
 

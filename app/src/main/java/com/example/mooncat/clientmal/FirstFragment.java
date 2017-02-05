@@ -83,7 +83,7 @@ public class FirstFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity(), AnimeView.class);
+                Intent intent = new Intent(getActivity(), AnimeViewActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("title", ((Anime)parent.getItemAtPosition(position)).getTitle());
                 bundle.putString("status", ((Anime)parent.getItemAtPosition(position)).getStatus());

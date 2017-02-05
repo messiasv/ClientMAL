@@ -7,31 +7,25 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
-
-public class AnimeView extends AppCompatActivity implements ImageDownloader.Listener {
+public class MangaViewActivity extends AppCompatActivity implements ImageDownloader.Listener {
 
     ImageView mImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_anime_view);
+        setContentView(R.layout.activity_manga_view);
 
         Bundle bundle = getIntent().getExtras();
-        try {
-            setElements(bundle);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        setElements(bundle);
     }
 
-    void setElements(Bundle bundle) throws IOException {
-        ((TextView) findViewById(R.id.animeViewTitle)).setText(bundle.getString("title"));
-        ((TextView) findViewById(R.id.animeViewStatus)).setText(bundle.getString("status"));
-        ((TextView) findViewById(R.id.animeViewType)).setText(bundle.getString("type"));
+    void setElements(Bundle bundle) {
+        ((TextView) findViewById(R.id.mangaViewTitle)).setText(bundle.getString("title"));
+        ((TextView) findViewById(R.id.mangaViewStatus)).setText(bundle.getString("status"));
+        ((TextView) findViewById(R.id.mangaViewType)).setText(bundle.getString("type"));
         new ImageDownloader(this).execute(bundle.getString("image"));
-        mImageView = (ImageView) findViewById(R.id.animeViewImage);
+        mImageView = (ImageView) findViewById(R.id.mangaViewImage);
     }
 
     @Override

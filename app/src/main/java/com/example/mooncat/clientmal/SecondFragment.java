@@ -81,7 +81,7 @@ public class SecondFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity(), MangaView.class);
+                Intent intent = new Intent(getActivity(), MangaViewActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("title", ((Manga)parent.getItemAtPosition(position)).getTitle());
                 bundle.putString("status", ((Manga)parent.getItemAtPosition(position)).getStatus());
