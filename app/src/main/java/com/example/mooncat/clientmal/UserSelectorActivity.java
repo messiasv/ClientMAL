@@ -75,7 +75,7 @@ public class UserSelectorActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Object result) {
             if((boolean)result) {
-                Intent intent = new Intent(getApplicationContext(), ViewPagerActivity.class);
+                Intent intent = new Intent(getApplicationContext(), NavigationDrawerActivity.class);
                 intent.putExtra("username", username);
                 startActivity(intent);
                 finish();
