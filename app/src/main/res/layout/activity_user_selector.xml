@@ -28,5 +28,5 @@ tools:context="com.example.mooncat.clientmal.UserSelectorActivity">
     android:id="@+id/send_button"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="@string/show_list_button"/>
+    android:text="@string/send_button"/>
 </LinearLayout>

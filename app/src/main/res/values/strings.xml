@@ -4,7 +4,7 @@
     <string name="anime_list">Anime List</string>
     <string name="manga_list">Manga List</string>
     <string name="myanimelist_account_username_hint">Enter your myanimelist.net account username !</string>
-    <string name="show_list_button">Show</string>
+    <string name="send_button">OK</string>
     <string name="username_hint">username</string>
     <string name="anime">Anime</string>
     <string name="manga">Manga</string>
@@ -12,8 +12,8 @@
     <string name="user_name_not_found_message">User not found !</string>
     <string name="title_activity_navigation_drawer">NavigationDrawerActivity</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
 </resources>

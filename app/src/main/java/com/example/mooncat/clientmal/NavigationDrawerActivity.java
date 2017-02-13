@@ -1,8 +1,10 @@
 package com.example.mooncat.clientmal;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -12,19 +14,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import static android.content.Intent.FLAG_ACTIVITY_REORDER_TO_FRONT;
-
 public class NavigationDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
-    private static final String TAG = "DrawerActivity";
-    private String mUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_drawer);
-        mUsername = getIntent().getStringExtra("username");
+        String mUsername = getIntent().getStringExtra("username");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -41,7 +38,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -83,18 +80,25 @@ public class NavigationDrawerActivity extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Fragment fragment = null;
+        Class fragmentClass;
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_list) {
-            Intent intent = new Intent(getApplicationContext(), ViewPagerActivity.class);
-            intent.putExtra("username", mUsername);
-            intent.addFlags(FLAG_ACTIVITY_REORDER_TO_FRONT);
-            startActivity(intent);
-        } else if (id == R.id.nav_user) {
+        if(id == R.id.nav_list/*|| id == R.id.nav_user*/) { // TODO: create the second fragment
+            fragmentClass = ViewPagerFragment.class;
 
-        } else if (id == R.id.nav_settings) {
+            try {
+                fragment = (Fragment) fragmentClass.newInstance();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.content_navigation_drawer, fragment).commit();
+
+        } else if (id == R.id.nav_settings) { // TODO: add the calls to the respective activities
 
         } else if (id == R.id.nav_about) {
 

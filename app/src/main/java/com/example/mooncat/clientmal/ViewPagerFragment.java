@@ -2,27 +2,34 @@ package com.example.mooncat.clientmal;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
-public class ViewPagerActivity extends AppCompatActivity {
-    private static final String TAG = "ViewPagerActivity";
+public class ViewPagerFragment extends Fragment {
+    private static final String TAG = "ViewPagerFragment";
     MyPagerAdapter adapterViewPager;
 
-    @Override
+    FragmentActivity faActivity;
+    LinearLayout linearLayout;
 
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_pager);
-        String mUsername = getIntent().getStringExtra("username");
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
-        adapterViewPager = new MyPagerAdapter(getSupportFragmentManager(), mUsername, getApplicationContext());
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        faActivity = super.getActivity();
+        linearLayout = (LinearLayout) inflater.inflate(R.layout.fragment_view_pager, container, false);
+        String mUsername = faActivity.getIntent().getStringExtra("username");
+        ViewPager viewPager = (ViewPager) linearLayout.findViewById(R.id.viewPager);
+        adapterViewPager = new MyPagerAdapter(faActivity.getSupportFragmentManager(), mUsername, faActivity.getApplicationContext());
         viewPager.setAdapter(adapterViewPager);
         Log.i(TAG, mUsername);
+        return linearLayout;
     }
 
     public static class MyPagerAdapter extends FragmentPagerAdapter {
