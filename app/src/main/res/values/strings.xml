@@ -16,4 +16,7 @@
     <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <!-- TODO: change the string value-->
+    <!-- For now there's no connection, so the string says "switch user" instead of "log out" -->
+    <string name="logout">Switch user</string>
 </resources>

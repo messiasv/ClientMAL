@@ -1,5 +1,6 @@
 package com.example.mooncat.clientmal;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -102,6 +103,10 @@ public class NavigationDrawerActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_about) {
 
+        } else if (id == R.id.nav_logout) {
+            Intent logout = new Intent(getApplicationContext(), UserSelectorActivity.class);
+            startActivity(logout);
+            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
