@@ -58,7 +58,7 @@ public class AnimeListFragment extends Fragment {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            animeList.addAll(AnimeParserXML.parseList(response));
+                            animeList.addAll(ParserXML.parseUserAnimeList(response));
                             adapter.notifyDataSetChanged();
                         } catch (XmlPullParserException | IOException e) {
                             e.printStackTrace();

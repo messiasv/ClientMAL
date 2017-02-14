@@ -56,7 +56,7 @@ public class MangaListFragment extends Fragment {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            mangaList.addAll(MangaParserXML.parseList(response));
+                            mangaList.addAll(ParserXML.parseUserMangaList(response));
                             adapter.notifyDataSetChanged();
                         } catch (XmlPullParserException | IOException e) {
                             e.printStackTrace();
