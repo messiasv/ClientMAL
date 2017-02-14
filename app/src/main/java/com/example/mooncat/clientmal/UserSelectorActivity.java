@@ -47,7 +47,7 @@ public class UserSelectorActivity extends AppCompatActivity {
         @Override
         protected Object doInBackground(Object[] params) {
             try {
-                HttpURLConnection hUC = (HttpURLConnection) (new URL("https://myanimelist.net/profile/" + username)).openConnection();
+                HttpURLConnection hUC = (HttpURLConnection) (new URL("https://myanimelist.net/profile/" + params[0])).openConnection();
                 hUC.setRequestMethod("HEAD");
                 hUC.connect();
                 final int responseCode = hUC.getResponseCode();
