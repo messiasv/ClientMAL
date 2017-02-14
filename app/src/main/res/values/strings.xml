@@ -19,4 +19,18 @@
     <!-- TODO: change the string value-->
     <!-- For now there's no connection, so the string says "switch user" instead of "log out" -->
     <string name="logout">Switch user</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="info_username">Username</string>
+    <string name="anime_stats">Anime Stats</string>
+    <string name="days_spent">Days spent</string>
+    <string name="watching">Watching</string>
+    <string name="completed">Completed</string>
+    <string name="on_hold">On-Hold</string>
+    <string name="dropped">Dropped</string>
+    <string name="plan_to_watch">Plan to Watch</string>
+    <string name="manga_stats">Manga Stats</string>
+    <string name="reading">Reading</string>
+    <string name="plan_to_read">Plan to Read</string>
 </resources>

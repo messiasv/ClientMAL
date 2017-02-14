@@ -1,6 +1,7 @@
 package com.example.mooncat.clientmal;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -16,7 +17,11 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 public class NavigationDrawerActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements  NavigationView.OnNavigationItemSelectedListener,
+                    ViewPagerFragment.OnFragmentInteractionListener,
+                    UserInfoFragment.OnFragmentInteractionListener {
+
+    private FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +50,19 @@ public class NavigationDrawerActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         ((TextView)navigationView.getHeaderView(0).findViewById(R.id.header_username)).setText(mUsername);
+        Fragment fragment = null;
+        Class fragmentClass = UserInfoFragment.class;
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.content_navigation_drawer, fragment)
+                .addToBackStack(null)
+                .commit();
     }
 
     @Override
@@ -87,8 +105,17 @@ public class NavigationDrawerActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if(id == R.id.nav_list/*|| id == R.id.nav_user*/) { // TODO: create the second fragment
-            fragmentClass = ViewPagerFragment.class;
+        if(id == R.id.nav_list || id == R.id.nav_user) { // TODO: create the second fragment
+            switch (id) {
+                case R.id.nav_list:
+                    fragmentClass = ViewPagerFragment.class;
+                    break;
+                case R.id.nav_user:
+                    fragmentClass = UserInfoFragment.class;
+                    break;
+                default:
+                    fragmentClass = null;
+            }
 
             try {
                 fragment = (Fragment) fragmentClass.newInstance();
@@ -96,8 +123,10 @@ public class NavigationDrawerActivity extends AppCompatActivity
                 e.printStackTrace();
             }
 
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.content_navigation_drawer, fragment).commit();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_navigation_drawer, fragment)
+                    .addToBackStack(null)
+                    .commit();
 
         } else if (id == R.id.nav_settings) { // TODO: add the calls to the respective activities
 
@@ -112,5 +141,10 @@ public class NavigationDrawerActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }

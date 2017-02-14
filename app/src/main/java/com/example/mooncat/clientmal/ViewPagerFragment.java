@@ -1,6 +1,7 @@
 package com.example.mooncat.clientmal;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -11,25 +12,31 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 public class ViewPagerFragment extends Fragment {
     private static final String TAG = "ViewPagerFragment";
     MyPagerAdapter adapterViewPager;
 
     FragmentActivity faActivity;
-    LinearLayout linearLayout;
+    ViewGroup viewGroup;
+
+    private UserInfoFragment.OnFragmentInteractionListener mListener;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         faActivity = super.getActivity();
-        linearLayout = (LinearLayout) inflater.inflate(R.layout.fragment_view_pager, container, false);
-        String mUsername = faActivity.getIntent().getStringExtra("username");
-        ViewPager viewPager = (ViewPager) linearLayout.findViewById(R.id.viewPager);
-        adapterViewPager = new MyPagerAdapter(faActivity.getSupportFragmentManager(), mUsername, faActivity.getApplicationContext());
+        viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_view_pager, container, false);
+        String username = faActivity.getIntent().getStringExtra("username");
+        ViewPager viewPager = (ViewPager) viewGroup.findViewById(R.id.viewPager);
+        adapterViewPager = new MyPagerAdapter(faActivity.getSupportFragmentManager(), username, faActivity.getApplicationContext());
         viewPager.setAdapter(adapterViewPager);
-        Log.i(TAG, mUsername);
-        return linearLayout;
+        Log.i(TAG, username);
+        return viewGroup;
     }
 
     public static class MyPagerAdapter extends FragmentPagerAdapter {
@@ -107,5 +114,44 @@ public class ViewPagerFragment extends Fragment {
         }
 
         );*/
+    }
+
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof UserInfoFragment.OnFragmentInteractionListener) {
+            mListener = (UserInfoFragment.OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     */
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(Uri uri);
     }
 }
