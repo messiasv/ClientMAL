@@ -4,7 +4,6 @@
     <string name="anime_list">Anime List</string>
     <string name="manga_list">Manga List</string>
     <string name="myanimelist_account_username_hint">Enter your myanimelist.net account username !</string>
-    <string name="send_button">OK</string>
     <string name="username_hint">username</string>
     <string name="anime">Anime</string>
     <string name="manga">Manga</string>
@@ -16,9 +15,7 @@
     <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-    <!-- TODO: change the string value-->
-    <!-- For now there's no connection, so the string says "switch user" instead of "log out" -->
-    <string name="logout">Switch user</string>
+    <string name="logout">Logout</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -33,4 +30,7 @@
     <string name="manga_stats">Manga Stats</string>
     <string name="reading">Reading</string>
     <string name="plan_to_read">Plan to Read</string>
+    <string name="password_hint">password</string>
+    <string name="login_button">Login</string>
+    <string name="incorrect_creds">Username or password incorrect</string>
 </resources>
