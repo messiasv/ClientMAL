@@ -50,6 +50,9 @@ public class NavigationDrawerActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         ((TextView)navigationView.getHeaderView(0).findViewById(R.id.header_username)).setText(mUsername);
+
+        // TODO: implement the following in a better way
+        navigationView.getMenu().getItem(0).setChecked(true);
         Fragment fragment = null;
         Class fragmentClass = UserInfoFragment.class;
         try {
