@@ -13,9 +13,10 @@
     tools:context="com.example.mooncat.clientmal.MangaViewActivity">
 
     <TextView
+        android:text="Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/mangaViewTitle"/>
+        android:id="@+id/mangaViewTitle" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,14 +36,64 @@
             android:orientation="vertical">
 
             <TextView
+                android:text="Status: "
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/mangaViewStatus" />
 
             <TextView
+                android:text="Type: "
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/mangaViewType" />
+
+            <TextView
+                android:text="Chapters: "
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/mangaViewChapters" />
+
+            <TextView
+                android:text="Volumes: "
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/mangaViewVolumes" />
+
+            <TextView
+                android:text="Start date: "
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/mangaViewStart" />
+
+            <TextView
+                android:text="End date: "
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/mangaViewEnd" />
+
+            <TextView
+                android:text="My score: "
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/mangaViewMyScore" />
+
+            <TextView
+                android:text="My status: "
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/mangaViewMyStatus" />
         </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+            <TextView
+                android:text="Synonyms: "
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/mangaViewSynonyms" />
+
     </LinearLayout>
 </LinearLayout>

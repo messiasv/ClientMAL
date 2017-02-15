@@ -13,6 +13,7 @@
     tools:context="com.example.mooncat.clientmal.AnimeViewActivity">
 
     <TextView
+        android:text="Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/animeViewTitle" />
@@ -34,14 +35,58 @@
             android:orientation="vertical">
 
             <TextView
+                android:text="Status: "
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/animeViewStatus" />
 
             <TextView
+                android:text="Type: "
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/animeViewType" />
+
+            <TextView
+                android:text="Episodes: "
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/animeViewEpisodes" />X
+
+            <TextView
+                android:text="Start date: "
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/animeViewStart" />
+
+            <TextView
+                android:text="End date: "
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/animeViewEnd" />
+
+            <TextView
+                android:text="My score: "
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/animeViewMyScore" />
+
+            <TextView
+                android:text="My status: "
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/animeViewMyStatus" />
         </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+            <TextView
+                android:text="Synonyms: "
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/animeViewSynonyms" />
+
     </LinearLayout>
 </LinearLayout>

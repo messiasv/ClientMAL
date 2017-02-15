@@ -1,6 +1,10 @@
 package com.example.mooncat.clientmal;
 
 class Anime extends Media {
+
+    private String episodes;
+    private String myWatchedEpisodes;
+
     public void setStatus(String status) {
         switch (status) {
             case "1":
@@ -43,5 +47,21 @@ class Anime extends Media {
             default:
                 super.setType(type);
         }
+    }
+
+    public void setEpisodes(String episodes) {
+        this.episodes = episodes;
+    }
+
+    public void setMyWatchedEpisodes(String myWatchedEpisodes) {
+        this.myWatchedEpisodes = myWatchedEpisodes;
+    }
+
+    public String getEpisodes() {
+        return episodes;
+    }
+
+    public String getMyWatchedEpisodes() {
+        return myWatchedEpisodes;
     }
 }

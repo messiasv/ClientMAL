@@ -24,7 +24,11 @@ public class ParserXML {
             if (eventType == XmlPullParser.START_TAG) {
                 switch (parser.getName()){
                     case "anime":
-                        animeList.add(new Anime()); break;
+                        animeList.add(new Anime());
+                        break;
+                    case "series_animedb_id":
+                        animeList.get(compt).setId(parser.getText());
+                        break;
                     case "series_title":
                         parser.next();
                         animeList.get(compt).setTitle(parser.getText());
@@ -40,6 +44,42 @@ public class ParserXML {
                     case "series_image":
                         parser.next();
                         animeList.get(compt).setImage(parser.getText());
+                        break;
+                    case "series_synonyms":
+                        parser.next();
+                        animeList.get(compt).setSynonyms(parser.getText());
+                        break;
+                    case "series_start":
+                        parser.next();
+                        animeList.get(compt).setStart(parser.getText());
+                        break;
+                    case "series_end":
+                        parser.next();
+                        animeList.get(compt).setEnd(parser.getText());
+                        break;
+                    case "series_episodes" :
+                        parser.next();
+                        animeList.get(compt).setEpisodes(parser.getText());
+                        break;
+                    case "my_watched_episodes":
+                        parser.next();
+                        animeList.get(compt).setMyWatchedEpisodes(parser.getText());
+                        break;
+                    case "my_start_date":
+                        parser.next();
+                        animeList.get(compt).setMyStartDate(parser.getText());
+                        break;
+                    case "my_finish_date":
+                        parser.next();
+                        animeList.get(compt).setMyFinishDate(parser.getText());
+                        break;
+                    case "my_score":
+                        parser.next();
+                        animeList.get(compt).setMyScore(parser.getText());
+                        break;
+                    case "my_status":
+                        parser.next();
+                        animeList.get(compt).setMyStatus(parser.getText());
                         break;
                 }
             } else if (eventType == XmlPullParser.END_TAG) {
@@ -65,7 +105,11 @@ public class ParserXML {
             if (eventType == XmlPullParser.START_TAG) {
                 switch (parser.getName()){
                     case "manga":
-                        mangaList.add(new Manga()); break;
+                        mangaList.add(new Manga());
+                        break;
+                    case "series_mangadb_id":
+                        mangaList.get(compt).setId(parser.getText());
+                        break;
                     case "series_title":
                         parser.next();
                         mangaList.get(compt).setTitle(parser.getText());
@@ -81,6 +125,50 @@ public class ParserXML {
                     case "series_image":
                         parser.next();
                         mangaList.get(compt).setImage(parser.getText());
+                        break;
+                    case "series_synonyms":
+                        parser.next();
+                        mangaList.get(compt).setSynonyms(parser.getText());
+                        break;
+                    case "series_start":
+                        parser.next();
+                        mangaList.get(compt).setStart(parser.getText());
+                        break;
+                    case "series_end":
+                        parser.next();
+                        mangaList.get(compt).setEnd(parser.getText());
+                        break;
+                    case "series_chapters":
+                        parser.next();
+                        mangaList.get(compt).setChapters(parser.getText());
+                        break;
+                    case "series_volumes":
+                        parser.next();
+                        mangaList.get(compt).setVolumes(parser.getText());
+                        break;
+                    case "my_read_chapters":
+                        parser.next();
+                        mangaList.get(compt).setMyReadChapters(parser.getText());
+                        break;
+                    case "my_read_volumes":
+                        parser.next();
+                        mangaList.get(compt).setMyReadVolumes(parser.getText());
+                        break;
+                    case "my_start_date":
+                        parser.next();
+                        mangaList.get(compt).setMyStartDate(parser.getText());
+                        break;
+                    case "my_finish_date":
+                        parser.next();
+                        mangaList.get(compt).setMyFinishDate(parser.getText());
+                        break;
+                    case "my_score":
+                        parser.next();
+                        mangaList.get(compt).setMyScore(parser.getText());
+                        break;
+                    case "my_status":
+                        parser.next();
+                        mangaList.get(compt).setMyStatus(parser.getText());
                         break;
                 }
             } else if (eventType == XmlPullParser.END_TAG) {

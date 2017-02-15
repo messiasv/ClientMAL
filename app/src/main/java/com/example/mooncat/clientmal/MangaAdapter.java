@@ -31,12 +31,13 @@ class MangaAdapter extends ArrayAdapter<Manga> implements ImageDownloader.Listen
         TextView status = (TextView) root.findViewById(R.id.status);
         TextView type = (TextView) root.findViewById(R.id.type);
         mImage = (ImageView) root.findViewById(R.id.imageView);
-//        ImageView image = (ImageView) root.findViewById(R.id.mangaViewImage);
 
-        title.setText(manga != null ? manga.getTitle() : null);
-        status.setText(manga != null ? manga.getStatus() : null);
-        type.setText(manga != null ? manga.getType() : null);
-        new ImageDownloader(this).execute(manga != null ? manga.getImage() : null);
+        if (manga != null) {
+            title.setText(manga.getTitle());
+            status.setText(manga.getStatus());
+            type.setText(manga.getType());
+            new ImageDownloader(this).execute(manga.getImage());
+        }
         return root;
     }
 

@@ -34,14 +34,8 @@ class AnimeAdapter extends ArrayAdapter<Anime> implements ImageDownloader.Listen
 
         if (anime != null) {
             title.setText(anime.getTitle());
-        }
-        if (anime != null) {
             status.setText(anime.getStatus());
-        }
-        if (anime != null) {
             type.setText(anime.getType());
-        }
-        if (anime != null) {
             new ImageDownloader(this).execute(anime.getImage());
         }
         return root;

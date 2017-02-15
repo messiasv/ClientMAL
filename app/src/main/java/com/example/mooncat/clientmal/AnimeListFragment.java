@@ -13,6 +13,7 @@ import android.widget.ListView;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.LinkedList;
 
 
@@ -60,12 +61,7 @@ public class AnimeListFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), AnimeViewActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("title", ((Anime)parent.getItemAtPosition(position)).getTitle());
-                bundle.putString("status", ((Anime)parent.getItemAtPosition(position)).getStatus());
-                bundle.putString("type", ((Anime)parent.getItemAtPosition(position)).getType());
-                bundle.putString("image", ((Anime)parent.getItemAtPosition(position)).getImage());
-                intent.putExtras(bundle);
+                intent.putExtra("anime", ((Anime)parent.getItemAtPosition(position)));
                 startActivity(intent);
             }
         });

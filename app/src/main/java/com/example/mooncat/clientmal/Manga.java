@@ -1,6 +1,12 @@
 package com.example.mooncat.clientmal;
 
 class Manga extends Media{
+
+    private String chapters;
+    private String volumes;
+    private String myReadChapters;
+    private String myReadVolumes;
+
     public void setStatus(String status) {
         switch (status) {
             case "1":
@@ -19,5 +25,37 @@ class Manga extends Media{
 
     public void setType(String type) {
         super.setType("Manga");
+    }
+
+    public void setChapters(String chapters) {
+        this.chapters = chapters;
+    }
+
+    public void setVolumes(String volumes) {
+        this.volumes = volumes;
+    }
+
+    public void setMyReadChapters(String myReadChapters) {
+        this.myReadChapters = myReadChapters;
+    }
+
+    public void setMyReadVolumes(String myReadVolumes) {
+        this.myReadVolumes = myReadVolumes;
+    }
+
+    public String getChapters() {
+        return chapters;
+    }
+
+    public String getVolumes() {
+        return volumes;
+    }
+
+    public String getMyReadChapters() {
+        return myReadChapters;
+    }
+
+    public String getMyReadVolumes() {
+        return myReadVolumes;
     }
 }

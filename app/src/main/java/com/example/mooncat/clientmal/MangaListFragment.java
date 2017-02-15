@@ -60,12 +60,7 @@ public class MangaListFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), MangaViewActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("title", ((Manga)parent.getItemAtPosition(position)).getTitle());
-                bundle.putString("status", ((Manga)parent.getItemAtPosition(position)).getStatus());
-                bundle.putString("type", ((Manga)parent.getItemAtPosition(position)).getType());
-                bundle.putString("image", ((Manga)parent.getItemAtPosition(position)).getImage());
-                intent.putExtras(bundle);
+                intent.putExtra("manga", (Manga) parent.getItemAtPosition(position));
                 startActivity(intent);
             }
         });
