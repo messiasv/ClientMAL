@@ -8,6 +8,5 @@
     <string name="manga_list">Lista de Mangas</string>
     <string name="myanimelist_account_username_hint">Introduzca el nombre de usuario de su cuenta myanimelist.net !</string>
     <string name="username_hint">nombre de usuario</string>
-    <string name="send_button">OK</string>
     <string name="user_name_not_found_message">¡ El usuario no existe !</string>
 </resources>
