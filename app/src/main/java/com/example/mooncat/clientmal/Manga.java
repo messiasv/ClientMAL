@@ -7,6 +7,7 @@ class Manga extends Media{
     private String myReadChapters;
     private String myReadVolumes;
 
+    @Override
     public void setStatus(String status) {
         switch (status) {
             case "1":
@@ -23,6 +24,30 @@ class Manga extends Media{
         }
     }
 
+    @Override
+    public void setMyStatus(String status) {
+        switch (status) {
+            case "1":
+                this.setMyStatus("Reading");
+                break;
+            case "2":
+                this.setMyStatus("Completed");
+                break;
+            case "3":
+                this.setMyStatus("On-Hold");
+                break;
+            case "4":
+                this.setMyStatus("Dropped");
+                break;
+            case "6":
+                this.setMyStatus("Plan to Read");
+                break;
+            default:
+                super.setMyStatus(status);
+        }
+    }
+
+    @Override
     public void setType(String type) {
         super.setType("Manga");
     }
