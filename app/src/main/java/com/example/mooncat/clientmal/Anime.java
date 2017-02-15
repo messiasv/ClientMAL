@@ -5,6 +5,12 @@ class Anime extends Media {
     private String episodes;
     private String myWatchedEpisodes;
 
+    public Anime() {
+        super();
+        this.episodes = "";
+        this.myWatchedEpisodes = "";
+    }
+
     @Override
     public void setStatus(String status) {
         switch (status) {

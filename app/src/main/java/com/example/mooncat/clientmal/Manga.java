@@ -7,6 +7,14 @@ class Manga extends Media{
     private String myReadChapters;
     private String myReadVolumes;
 
+    public Manga() {
+        super();
+        this.chapters = "";
+        this.volumes = "";
+        this.myReadChapters = "";
+        this.myReadVolumes = "";
+    }
+
     @Override
     public void setStatus(String status) {
         switch (status) {

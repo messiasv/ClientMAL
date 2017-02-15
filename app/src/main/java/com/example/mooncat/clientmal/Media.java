@@ -20,13 +20,21 @@ public class Media implements Serializable {
     private String myStatus;
 
     public Media() {
-    }
-
-    public Media(String title, String status, String type, String image) {
-        this.title = title;
-        this.status = status;
-        this.type = type;
-        this.image = image;
+        this.title = "";
+        this.english = "";
+        this.status = "";
+        this.type = "";
+        this.image = "";
+        this.synonyms = "";
+        this.start = "";
+        this.end = "";
+        this.id = "";
+        this.score = "";
+        this.synopsis = "";
+        this.myStartDate = "";
+        this.myFinishDate = "";
+        this.myScore = "";
+        this.myStatus = "";
     }
 
     public void setTitle(String title) {
@@ -34,7 +42,7 @@ public class Media implements Serializable {
     }
 
     public void setEnglish(String english) {
-        this.english = english;
+        this.english = english != null ? english : "";
     }
 
     public void setStatus(String status) {
@@ -50,7 +58,7 @@ public class Media implements Serializable {
     }
 
     public void setSynonyms(String synonyms) {
-        this.synonyms = synonyms;
+        this.synonyms = synonyms != null ? synonyms : "";
     }
 
     public void setStart(String start) {
