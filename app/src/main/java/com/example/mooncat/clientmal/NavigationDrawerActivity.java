@@ -24,9 +24,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 public class NavigationDrawerActivity extends AppCompatActivity
-        implements  NavigationView.OnNavigationItemSelectedListener,
-                    ViewPagerFragment.OnFragmentInteractionListener,
-                    UserInfoFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        ViewPagerFragment.OnFragmentInteractionListener,
+        UserInfoFragment.OnFragmentInteractionListener {
 
     private FragmentManager fragmentManager;
     private String mUsername;
@@ -53,7 +53,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        ((TextView)navigationView.getHeaderView(0).findViewById(R.id.header_username)).setText(mUsername);
+        ((TextView) navigationView.getHeaderView(0).findViewById(R.id.header_username)).setText(mUsername);
 
         // TODO: implement the following in a better way
         navigationView.getMenu().getItem(0).setChecked(true);
@@ -68,7 +68,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
         fetchData();
     }
 
-    public void fetchData(){
+    public void fetchData() {
         RequestQueue queue = Volley.newRequestQueue(this);
         String urlAnime = Tools.searchUserAnimeListRequest(mUsername);
         String urlManga = Tools.searchUserMangaListRequest(mUsername);
@@ -148,7 +148,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if(id == R.id.nav_list || id == R.id.nav_user) { // TODO: create the second fragment
+        if (id == R.id.nav_list || id == R.id.nav_user) { // TODO: create the second fragment
             switch (id) {
                 case R.id.nav_list:
                     createVPFragment();
@@ -160,12 +160,6 @@ public class NavigationDrawerActivity extends AppCompatActivity
                 default:
                     fragment = null;
             }
-//
-//            try {
-//                fragment = (Fragment) fragmentClass.newInstance();
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
 
             fragmentManager.beginTransaction()
                     .replace(R.id.content_navigation_drawer, fragment)
@@ -177,6 +171,9 @@ public class NavigationDrawerActivity extends AppCompatActivity
         } else if (id == R.id.nav_about) {
 
         } else if (id == R.id.nav_logout) {
+            for (String file : this.fileList()) {
+                this.deleteFile(file);
+            }
             Intent logout = new Intent(getApplicationContext(), UserLoginActivity.class);
             startActivity(logout);
             finish();

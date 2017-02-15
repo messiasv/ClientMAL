@@ -26,6 +26,7 @@ import java.util.Map;
 public class UserLoginActivity extends AppCompatActivity {
 
     private static final String FILENAME = "creds";
+    private static final String USERNAME = "username";
     private String mUsername;
     private EditText usernameEntry;
     private EditText passwordEntry;
@@ -68,10 +69,14 @@ public class UserLoginActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         FileOutputStream fos;
+                        FileOutputStream fosU;
                         try {
                             fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
                             fos.write(creds.getBytes());
                             fos.close();
+                            fosU = openFileOutput(USERNAME, Context.MODE_PRIVATE);
+                            fosU.write(mUsername.getBytes());
+                            fosU.close();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
