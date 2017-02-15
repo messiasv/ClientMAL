@@ -31,4 +31,6 @@
     <string name="password_hint">password</string>
     <string name="login_button">Login</string>
     <string name="incorrect_creds">Username or password incorrect</string>
+    <string name="action_licenses">Open Source Licenses</string>
+    <string name="action_about">About App</string>
 </resources>

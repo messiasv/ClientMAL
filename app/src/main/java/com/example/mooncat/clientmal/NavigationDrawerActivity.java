@@ -169,7 +169,8 @@ public class NavigationDrawerActivity extends AppCompatActivity
         } else if (id == R.id.nav_settings) { // TODO: add the calls to the respective activities
 
         } else if (id == R.id.nav_about) {
-
+            Intent intent = new Intent(getApplicationContext(), AboutActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_logout) {
             for (String file : this.fileList()) {
                 this.deleteFile(file);
