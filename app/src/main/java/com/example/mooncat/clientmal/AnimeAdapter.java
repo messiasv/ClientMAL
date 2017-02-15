@@ -31,7 +31,6 @@ class AnimeAdapter extends ArrayAdapter<Anime> implements ImageDownloader.Listen
         TextView status = (TextView) root.findViewById(R.id.status);
         TextView type = (TextView) root.findViewById(R.id.type);
         mImage = (ImageView) root.findViewById(R.id.imageView);
-        System.out.println(mImage.toString());
 
         if (anime != null) {
             title.setText(anime.getTitle());

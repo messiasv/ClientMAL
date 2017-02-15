@@ -30,13 +30,18 @@ public class NavigationDrawerActivity extends AppCompatActivity
 
     private FragmentManager fragmentManager;
     private String mUsername;
-    private Fragment fragment = null;
+    private String mAnimeListXml;
+    private String mMangaListXml;
+    private Fragment uiFragment = null;
+    private Fragment vpFragment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_drawer);
         mUsername = getIntent().getStringExtra("username");
+        mAnimeListXml = "";
+        mMangaListXml = "";
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -52,16 +57,11 @@ public class NavigationDrawerActivity extends AppCompatActivity
 
         // TODO: implement the following in a better way
         navigationView.getMenu().getItem(0).setChecked(true);
-        Class fragmentClass = UserInfoFragment.class;
-        try {
-            fragment = (Fragment) fragmentClass.newInstance();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        uiFragment = new UserInfoFragment();
 
         fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.content_navigation_drawer, fragment)
+                .replace(R.id.content_navigation_drawer, uiFragment)
                 .addToBackStack(null)
                 .commit();
         // Fetch data (lists + user info)
@@ -77,7 +77,8 @@ public class NavigationDrawerActivity extends AppCompatActivity
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        ((UserInfoFragment)fragment).setAnimeValues(response);
+                        mAnimeListXml = response;
+                        ((UserInfoFragment) uiFragment).setAnimeValues(mAnimeListXml);
 
                     }
                 }, new Response.ErrorListener() {
@@ -92,7 +93,8 @@ public class NavigationDrawerActivity extends AppCompatActivity
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        ((UserInfoFragment)fragment).setMangaValues(response);
+                        mMangaListXml = response;
+                        ((UserInfoFragment) uiFragment).setMangaValues(mMangaListXml);
                     }
                 }, new Response.ErrorListener() {
 
@@ -101,6 +103,10 @@ public class NavigationDrawerActivity extends AppCompatActivity
             }
         });
         queue.add(stringMangaRequest);
+    }
+
+    public void createVPFragment() {
+        vpFragment = ViewPagerFragment.newInstance(mAnimeListXml, mMangaListXml);
     }
 
     @Override
@@ -139,27 +145,27 @@ public class NavigationDrawerActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Fragment fragment = null;
-        Class fragmentClass;
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if(id == R.id.nav_list || id == R.id.nav_user) { // TODO: create the second fragment
             switch (id) {
                 case R.id.nav_list:
-                    fragmentClass = ViewPagerFragment.class;
+                    createVPFragment();
+                    fragment = vpFragment;
                     break;
                 case R.id.nav_user:
-                    fragmentClass = UserInfoFragment.class;
+                    fragment = uiFragment;
                     break;
                 default:
-                    fragmentClass = null;
+                    fragment = null;
             }
-
-            try {
-                fragment = (Fragment) fragmentClass.newInstance();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+//
+//            try {
+//                fragment = (Fragment) fragmentClass.newInstance();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
 
             fragmentManager.beginTransaction()
                     .replace(R.id.content_navigation_drawer, fragment)

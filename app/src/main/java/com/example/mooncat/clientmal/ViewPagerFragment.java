@@ -8,19 +8,27 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 public class ViewPagerFragment extends Fragment {
-    private static final String TAG = "ViewPagerFragment";
     MyPagerAdapter adapterViewPager;
 
     FragmentActivity faActivity;
     ViewGroup viewGroup;
 
     private UserInfoFragment.OnFragmentInteractionListener mListener;
+
+    // newInstance constructor for creating fragment with arguments
+    public static ViewPagerFragment newInstance(String xmlAnime, String xmlManga) {
+        ViewPagerFragment viewPagerFragment = new ViewPagerFragment();
+        final Bundle args = new Bundle();
+        args.putString("animelist", xmlAnime);
+        args.putString("mangalist", xmlManga);
+        viewPagerFragment.setArguments(args);
+        return viewPagerFragment;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,24 +40,30 @@ public class ViewPagerFragment extends Fragment {
         faActivity = super.getActivity();
         viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_view_pager, container, false);
         String username = faActivity.getIntent().getStringExtra("username");
+        String animeListXml = getArguments().getString("animelist");
+        String mangaListXml = getArguments().getString("mangalist");
         ViewPager viewPager = (ViewPager) viewGroup.findViewById(R.id.viewPager);
-        adapterViewPager = new MyPagerAdapter(faActivity.getSupportFragmentManager(), username, faActivity.getApplicationContext());
+        adapterViewPager = new MyPagerAdapter(faActivity.getSupportFragmentManager(),
+                faActivity.getApplicationContext(),
+                username, animeListXml, mangaListXml);
         viewPager.setAdapter(adapterViewPager);
-        Log.i(TAG, username);
         return viewGroup;
     }
 
     public static class MyPagerAdapter extends FragmentPagerAdapter {
-        private static final String TAG = "MyPagerAdapter";
         private static int NUM_ITEMS = 2;
         private final String mUsername;
+        private final String mAnimeListXml;
+        private final String mMangaListXml;
         private final Context mContext;
 
-        MyPagerAdapter(FragmentManager fragmentManager, String username, Context context) {
+        MyPagerAdapter(FragmentManager fragmentManager, Context context,
+                       String username, String animeListXml, String mangaListXml) {
             super(fragmentManager);
             this.mUsername = username;
+            this.mAnimeListXml = animeListXml;
+            this.mMangaListXml = mangaListXml;
             this.mContext = context;
-            Log.wtf(TAG, (username != null) ? username : "username NULL !!!!!");
         }
 
         // Returns total number of pages
@@ -61,13 +75,12 @@ public class ViewPagerFragment extends Fragment {
         // Returns the fragment to display for that page
         @Override
         public Fragment getItem(int position) {
-//            Log.e(TAG, mUsername);
             switch (position) {
                 case 0: // Fragment # 0 - This will show AnimeListFragment
-                    return AnimeListFragment.newInstance(mUsername);
+                    return AnimeListFragment.newInstance(mUsername, mAnimeListXml);
 
                 case 1: // Fragment # 1 - This will show MangaListFragment
-                    return MangaListFragment.newInstance(mUsername);
+                    return MangaListFragment.newInstance(mUsername, mMangaListXml);
                 default:
                     return null;
             }

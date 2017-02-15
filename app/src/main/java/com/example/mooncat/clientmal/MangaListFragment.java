@@ -1,6 +1,5 @@
 package com.example.mooncat.clientmal;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,13 +9,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -31,12 +23,14 @@ public class MangaListFragment extends Fragment {
     LinkedList<Manga> mangaList;
     ArrayAdapter<Manga> adapter;
     protected String mUsername;
+    protected String mMangaListXml;
 
     // newInstance constructor for creating fragment with arguments
-    public static MangaListFragment newInstance(String username) {
+    public static MangaListFragment newInstance(String username, String mangaListXml) {
         MangaListFragment mangaListFragment = new MangaListFragment();
         final Bundle args = new Bundle();
         args.putString("username", username);
+        args.putString("mangalist", mangaListXml);
         mangaListFragment.setArguments(args);
         return mangaListFragment;
     }
@@ -47,29 +41,13 @@ public class MangaListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mangaList = new LinkedList<>();
         mUsername = getArguments().getString("username");
+        mMangaListXml = getArguments().getString("mangalist");
 
-        RequestQueue queue = Volley.newRequestQueue(getContext());
-        String url = Tools.searchUserMangaListRequest(mUsername);
-
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            mangaList.addAll(ParserXML.parseUserMangaList(response));
-                            adapter.notifyDataSetChanged();
-                        } catch (XmlPullParserException | IOException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-            }
-        });
-        queue.add(stringRequest);
+        try {
+            mangaList.addAll(ParserXML.parseUserMangaList(mMangaListXml));
+        } catch (XmlPullParserException | IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // Inflate the view for the fragment based on layout XML
@@ -95,5 +73,4 @@ public class MangaListFragment extends Fragment {
         listView.setAdapter(adapter);
         return view;
     }
-
 }

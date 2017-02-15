@@ -3,20 +3,12 @@ package com.example.mooncat.clientmal;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -28,16 +20,17 @@ import java.util.LinkedList;
  * A simple {@link Fragment} subclass.
  */
 public class AnimeListFragment extends Fragment {
-    private static final String TAG = "AnimeListFragment";
     LinkedList<Anime> animeList;
     ArrayAdapter<Anime> adapter;
     protected String  mUsername;
+    protected String  mAnimeListXml;
 
     // newInstance constructor for creating fragment with arguments
-    public static AnimeListFragment newInstance(String username) {
+    public static AnimeListFragment newInstance(String username, String animeListXml) {
         AnimeListFragment animeListFragment = new AnimeListFragment();
         final Bundle args = new Bundle();
         args.putString("username", username);
+        args.putString("animelist", animeListXml);
         animeListFragment.setArguments(args);
         return animeListFragment;
     }
@@ -48,30 +41,13 @@ public class AnimeListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         animeList = new LinkedList<>();
         mUsername = getArguments().getString("username");
+        mAnimeListXml = getArguments().getString("animelist");
 
-        RequestQueue queue = Volley.newRequestQueue(getContext());
-        String url = Tools.searchUserAnimeListRequest(mUsername);
-        Log.i(TAG, url);
-
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            animeList.addAll(ParserXML.parseUserAnimeList(response));
-                            adapter.notifyDataSetChanged();
-                        } catch (XmlPullParserException | IOException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-            }
-        });
-        queue.add(stringRequest);
+        try {
+            animeList.addAll(ParserXML.parseUserAnimeList(mAnimeListXml));
+        } catch (XmlPullParserException | IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // Inflate the view for the fragment based on layout XML
