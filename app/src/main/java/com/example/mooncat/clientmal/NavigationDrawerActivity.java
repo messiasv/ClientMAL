@@ -177,7 +177,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
         } else if (id == R.id.nav_about) {
 
         } else if (id == R.id.nav_logout) {
-            Intent logout = new Intent(getApplicationContext(), UserSelectorActivity.class);
+            Intent logout = new Intent(getApplicationContext(), UserLoginActivity.class);
             startActivity(logout);
             finish();
         }

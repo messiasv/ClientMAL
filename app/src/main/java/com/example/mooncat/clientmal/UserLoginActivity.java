@@ -23,9 +23,10 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UserSelectorActivity extends AppCompatActivity {
+public class UserLoginActivity extends AppCompatActivity {
 
     private static final String FILENAME = "creds";
+    private String mUsername;
     private EditText usernameEntry;
     private EditText passwordEntry;
     private Button loginButton;
@@ -33,7 +34,7 @@ public class UserSelectorActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_selector);
+        setContentView(R.layout.activity_user_login);
 
         usernameEntry = (EditText) findViewById(R.id.MAL_login);
         passwordEntry = (EditText) findViewById(R.id.MAL_password);
@@ -43,13 +44,20 @@ public class UserSelectorActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 v.setEnabled(false);
-                verifyCredentials(usernameEntry.getText().toString(), passwordEntry.getText().toString());
+                mUsername = usernameEntry.getText().toString();
+                verifyCredentials(encodeCredentials(mUsername, passwordEntry.getText().toString()));
                 passwordEntry.setText("");
             }
         });
     }
 
-    protected void verifyCredentials(final String username, final String password) {
+    private String encodeCredentials(final String username, final String password) {
+        String creds = String.format("%s:%s", username, password);
+        String auth = "Basic " + Base64.encodeToString(creds.getBytes(), Base64.NO_WRAP);
+        return auth;
+    }
+
+    protected void verifyCredentials(final String creds) {
         RequestQueue queue = Volley.newRequestQueue(this);
 
 
@@ -62,17 +70,13 @@ public class UserSelectorActivity extends AppCompatActivity {
                         FileOutputStream fos;
                         try {
                             fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
-                            String creds = String.format("%s:%s", username, password);
-                            String auth = "Basic " + Base64.encodeToString(creds.getBytes(), Base64.NO_WRAP);
-                            fos.write(auth.getBytes());
+                            fos.write(creds.getBytes());
                             fos.close();
-                            creds = null;
-                            auth = null;
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                         Intent intent = new Intent(getApplicationContext(), NavigationDrawerActivity.class);
-                        intent.putExtra("username", username);
+                        intent.putExtra("username", mUsername);
                         startActivity(intent);
                         finish();
                     }
@@ -81,7 +85,7 @@ public class UserSelectorActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 loginButton.setEnabled(true);
-                Toast.makeText(UserSelectorActivity.this,
+                Toast.makeText(UserLoginActivity.this,
                         R.string.incorrect_creds,
                         Toast.LENGTH_SHORT).show();
             }
@@ -89,9 +93,7 @@ public class UserSelectorActivity extends AppCompatActivity {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> params = new HashMap<>();
-                String creds = String.format("%s:%s", username, password);
-                String auth = "Basic " + Base64.encodeToString(creds.getBytes(), Base64.NO_WRAP);
-                params.put("Authorization", auth);
+                params.put("Authorization", creds);
                 return params;
             }
         };
