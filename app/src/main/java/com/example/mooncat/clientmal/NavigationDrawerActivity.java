@@ -16,30 +16,29 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 public class NavigationDrawerActivity extends AppCompatActivity
         implements  NavigationView.OnNavigationItemSelectedListener,
                     ViewPagerFragment.OnFragmentInteractionListener,
                     UserInfoFragment.OnFragmentInteractionListener {
 
     private FragmentManager fragmentManager;
+    private String mUsername;
+    private Fragment fragment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_drawer);
-        String mUsername = getIntent().getStringExtra("username");
+        mUsername = getIntent().getStringExtra("username");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        /* FAB */
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -53,7 +52,6 @@ public class NavigationDrawerActivity extends AppCompatActivity
 
         // TODO: implement the following in a better way
         navigationView.getMenu().getItem(0).setChecked(true);
-        Fragment fragment = null;
         Class fragmentClass = UserInfoFragment.class;
         try {
             fragment = (Fragment) fragmentClass.newInstance();
@@ -66,6 +64,43 @@ public class NavigationDrawerActivity extends AppCompatActivity
                 .replace(R.id.content_navigation_drawer, fragment)
                 .addToBackStack(null)
                 .commit();
+        // Fetch data (lists + user info)
+        fetchData();
+    }
+
+    public void fetchData(){
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String urlAnime = Tools.searchUserAnimeListRequest(mUsername);
+        String urlManga = Tools.searchUserMangaListRequest(mUsername);
+
+        StringRequest stringAnimeRequest = new StringRequest(Request.Method.GET, urlAnime,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        ((UserInfoFragment)fragment).setAnimeValues(response);
+
+                    }
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        });
+        queue.add(stringAnimeRequest);
+
+        StringRequest stringMangaRequest = new StringRequest(Request.Method.GET, urlManga,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        ((UserInfoFragment)fragment).setMangaValues(response);
+                    }
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        });
+        queue.add(stringMangaRequest);
     }
 
     @Override

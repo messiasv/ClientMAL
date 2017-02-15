@@ -10,7 +10,7 @@ public class Tools {
         return "https://myanimelist.net/malappinfo.php?u=" + username + "&status=all&type=anime";
     }
 
-    public static String SearchUserMangaListRequest(String username) {
+    public static String searchUserMangaListRequest(String username) {
         return "https://myanimelist.net/malappinfo.php?u=" + username + "&status=all&type=manga";
     }
 }

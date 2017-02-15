@@ -50,7 +50,7 @@ public class AnimeListFragment extends Fragment {
         mUsername = getArguments().getString("username");
 
         RequestQueue queue = Volley.newRequestQueue(getContext());
-        String url = "https://myanimelist.net/malappinfo.php?u=" + mUsername + "&status=all&type=anime";
+        String url = Tools.searchUserAnimeListRequest(mUsername);
         Log.i(TAG, url);
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,

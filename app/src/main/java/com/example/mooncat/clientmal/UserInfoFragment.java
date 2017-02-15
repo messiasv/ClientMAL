@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.xmlpull.v1.XmlPullParserException;
+import java.io.IOException;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,6 +23,7 @@ import android.widget.TextView;
  */
 public class UserInfoFragment extends Fragment {
     FragmentActivity faActivity;
+    ViewGroup vG;
 
     private OnFragmentInteractionListener mListener;
 
@@ -36,22 +39,39 @@ public class UserInfoFragment extends Fragment {
         String username = faActivity.getIntent().getStringExtra("username");
 
         // Inflate the layout for this fragment
-        ViewGroup vG = (ViewGroup) inflater.inflate(R.layout.fragment_user_info, container, false);
+        vG = (ViewGroup) inflater.inflate(R.layout.fragment_user_info, container, false);
         ((TextView)vG.findViewById(R.id.info_username)).setText(username);
-        // TODO: put real values
-        ((TextView)vG.findViewById(R.id.info_anime_days)).setText("X");
-        ((TextView)vG.findViewById(R.id.info_anime_watching_value)).setText("X");
-        ((TextView)vG.findViewById(R.id.info_anime_completed_value)).setText("X");
-        ((TextView)vG.findViewById(R.id.info_anime_onhold_value)).setText("X");
-        ((TextView)vG.findViewById(R.id.info_anime_dropped_value)).setText("X");
-        ((TextView)vG.findViewById(R.id.info_anime_plantowatch_value)).setText("X");
-        ((TextView)vG.findViewById(R.id.info_manga_days)).setText("X");
-        ((TextView)vG.findViewById(R.id.info_manga_reading_value)).setText("X");
-        ((TextView)vG.findViewById(R.id.info_manga_completed_value)).setText("X");
-        ((TextView)vG.findViewById(R.id.info_manga_onhold_value)).setText("X");
-        ((TextView)vG.findViewById(R.id.info_manga_dropped_value)).setText("X");
-        ((TextView)vG.findViewById(R.id.info_manga_plantoread_value)).setText("X");
         return vG;
+    }
+
+    public void setAnimeValues(String xmlAnime) {
+        User animeUser;
+        try {
+            animeUser = ParserXML.parseUserAnimeInfo(xmlAnime);
+            ((TextView)vG.findViewById(R.id.info_anime_days)).setText(animeUser.getDaysSpentWatchingAnime());
+            ((TextView)vG.findViewById(R.id.info_anime_watching_value)).setText(animeUser.getWatchingAnime());
+            ((TextView)vG.findViewById(R.id.info_anime_completed_value)).setText(animeUser.getCompletedAnime());
+            ((TextView)vG.findViewById(R.id.info_anime_onhold_value)).setText(animeUser.getOnHoldAnime());
+            ((TextView)vG.findViewById(R.id.info_anime_dropped_value)).setText(animeUser.getDroppedAnime());
+            ((TextView)vG.findViewById(R.id.info_anime_plantowatch_value)).setText(animeUser.getPlanToWatchAnime());
+        } catch (IOException | XmlPullParserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setMangaValues(String xmlManga) {
+        User mangaUser;
+        try {
+            mangaUser = ParserXML.parseUserMangaInfo(xmlManga);
+            ((TextView)vG.findViewById(R.id.info_manga_days)).setText(mangaUser.getDaysSpentWatchingManga());
+            ((TextView)vG.findViewById(R.id.info_manga_reading_value)).setText(mangaUser.getReadingManga());
+            ((TextView)vG.findViewById(R.id.info_manga_completed_value)).setText(mangaUser.getCompletedManga());
+            ((TextView)vG.findViewById(R.id.info_manga_onhold_value)).setText(mangaUser.getOnHoldManga());
+            ((TextView)vG.findViewById(R.id.info_manga_dropped_value)).setText(mangaUser.getDroppedManga());
+            ((TextView)vG.findViewById(R.id.info_manga_plantoread_value)).setText(mangaUser.getPlanToReadManga());
+        } catch (IOException | XmlPullParserException e) {
+            e.printStackTrace();
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event

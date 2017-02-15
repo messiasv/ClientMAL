@@ -92,4 +92,97 @@ public class ParserXML {
         }
         return mangaList;
     }
+
+    static User parseUserAnimeInfo(String xml)throws XmlPullParserException, IOException {
+        XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+        XmlPullParser parser = factory.newPullParser();
+
+        User user = new User();
+        InputStream is = new ByteArrayInputStream(xml.getBytes("UTF-8"));
+        parser.setInput(is, "UTF-8");
+        int eventType = parser.getEventType();
+        while (eventType != XmlPullParser.END_DOCUMENT) {
+            if (eventType == XmlPullParser.START_TAG) {
+                switch (parser.getName()) {
+                    case "user_name":
+                        parser.next();
+                        user.setName(parser.getText());
+                        break;
+                    case "user_watching":
+                        parser.next();
+                        user.setWatchingAnime(parser.getText());
+                        break;
+                    case "user_completed":
+                        parser.next();
+                        user.setCompletedAnime(parser.getText());
+                        break;
+                    case "user_onhold":
+                        parser.next();
+                        user.setOnHoldAnime(parser.getText());
+                        break;
+                    case "user_dropped":
+                        parser.next();
+                        user.setDroppedAnime(parser.getText());
+                        break;
+                    case "user_plantowatch":
+                        parser.next();
+                        user.setPlanToWatchAnime(parser.getText());
+                        break;
+                    case "user_days_spent_watching":
+                        parser.next();
+                        user.setDaysSpentWatchingAnime(parser.getText());
+                        break;
+                }
+            }
+            eventType = parser.next();
+        }
+        return user;
+    }
+
+    static User parseUserMangaInfo(String xml) throws XmlPullParserException, IOException {
+        XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+        XmlPullParser parser = factory.newPullParser();
+
+        User user = new User();
+        InputStream is = new ByteArrayInputStream(xml.getBytes("UTF-8"));
+        parser.setInput(is, "UTF-8");
+
+        int eventType = parser.getEventType();
+        while (eventType != XmlPullParser.END_DOCUMENT) {
+            if (eventType == XmlPullParser.START_TAG) {
+                switch (parser.getName()){
+                    case "user_name":
+                        parser.next();
+                        user.setName(parser.getText());
+                        break;
+                    case "user_reading":
+                        parser.next();
+                        user.setReadingManga(parser.getText());
+                        break;
+                    case "user_completed":
+                        parser.next();
+                        user.setCompletedManga(parser.getText());
+                        break;
+                    case "user_onhold":
+                        parser.next();
+                        user.setOnHoldManga(parser.getText());
+                        break;
+                    case "user_dropped":
+                        parser.next();
+                        user.setDroppedManga(parser.getText());
+                        break;
+                    case "user_plantoread":
+                        parser.next();
+                        user.setPlanToReadManga(parser.getText());
+                        break;
+                    case "user_days_spent_watching":
+                        parser.next();
+                        user.setDaysSpentWatchingManga(parser.getText());
+                        break;
+                }
+            }
+            eventType = parser.next();
+        }
+        return user;
+    }
 }

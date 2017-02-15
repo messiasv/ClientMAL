@@ -49,7 +49,7 @@ public class MangaListFragment extends Fragment {
         mUsername = getArguments().getString("username");
 
         RequestQueue queue = Volley.newRequestQueue(getContext());
-        String url = "https://myanimelist.net/malappinfo.php?u=" + mUsername + "&status=all&type=manga";
+        String url = Tools.searchUserMangaListRequest(mUsername);
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
