@@ -1,11 +1,9 @@
 package com.example.mooncat.clientmal;
 
-import android.graphics.Bitmap;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,6 +12,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -22,9 +21,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class MangaViewActivity extends AppCompatActivity implements ImageDownloader.Listener {
+public class MangaViewActivity extends AppCompatActivity{
 
-    ImageView mImageView;
+    NetworkImageView mImageView;
     Manga mManga;
 
     @Override
@@ -77,8 +76,8 @@ public class MangaViewActivity extends AppCompatActivity implements ImageDownloa
         ((TextView) findViewById(R.id.mangaViewMyScore)).append(mManga.getMyScore());
         ((TextView) findViewById(R.id.mangaViewMyStatus)).append(mManga.getMyStatus());
 
-        new ImageDownloader(this).execute(mManga.getImage());
-        mImageView = (ImageView) findViewById(R.id.mangaViewImage);
+        mImageView = (NetworkImageView) findViewById(R.id.mangaViewImage);
+        ImageDownloader.downloadImage(mManga.getImage(),this,mImageView);
     }
 
     // mode: 0_add 1_update 2_delete
@@ -120,15 +119,5 @@ public class MangaViewActivity extends AppCompatActivity implements ImageDownloa
             }
         };
         queue.add(deleteMangaRequest);
-    }
-
-    @Override
-    public void onImageLoaded(Bitmap bitmap) {
-        mImageView.setImageBitmap(bitmap);
-    }
-
-    @Override
-    public void onError() {
-        Toast.makeText(this, "Error Loading Image !", Toast.LENGTH_SHORT).show();
     }
 }

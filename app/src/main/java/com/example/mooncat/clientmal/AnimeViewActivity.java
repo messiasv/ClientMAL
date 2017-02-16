@@ -1,10 +1,8 @@
 package com.example.mooncat.clientmal;
 
-import android.graphics.Bitmap;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,6 +11,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -21,9 +20,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class AnimeViewActivity extends AppCompatActivity implements ImageDownloader.Listener {
+public class AnimeViewActivity extends AppCompatActivity {
 
-    ImageView mImageView;
+    NetworkImageView mImageView;
     Anime mAnime;
 
     @Override
@@ -58,11 +57,9 @@ public class AnimeViewActivity extends AppCompatActivity implements ImageDownloa
         ((TextView) findViewById(R.id.animeViewSynonyms)).append(mAnime.getSynonyms());
         ((TextView) findViewById(R.id.animeViewStart)).append(Objects.equals(mAnime.getStart(), "0000-00-00") ?"?":mAnime.getStart());
         ((TextView) findViewById(R.id.animeViewEnd)).append(Objects.equals(mAnime.getEnd(), "0000-00-00") ?"?":mAnime.getEnd());
-        ((TextView) findViewById(R.id.animeViewMyScore)).append(mAnime.getMyScore());
-        ((TextView) findViewById(R.id.animeViewMyStatus)).append(mAnime.getMyStatus());
 
-        new ImageDownloader(this).execute(mAnime.getImage());
-        mImageView = (ImageView) findViewById(R.id.animeViewImage);
+        mImageView = (NetworkImageView) findViewById(R.id.animeViewImage);
+        ImageDownloader.downloadImage(mAnime.getImage(),this,mImageView);
     }
     // mode: 0_add 1_update 2_delete
     void animeRequest(int mode) {
@@ -102,15 +99,5 @@ public class AnimeViewActivity extends AppCompatActivity implements ImageDownloa
             }
         };
         queue.add(animeRequest);
-    }
-
-    @Override
-    public void onImageLoaded(Bitmap bitmap) {
-        mImageView.setImageBitmap(bitmap);
-    }
-
-    @Override
-    public void onError() {
-        Toast.makeText(this, "Error Loading Image !", Toast.LENGTH_SHORT).show();
     }
 }
