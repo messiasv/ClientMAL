@@ -33,6 +33,14 @@ public class Tools {
         return requete + nameEncoded;
     }
 
+    public static String DeleteAnime(String id) {
+        return "https://myanimelist.net/api/animelist/delete/" + id + ".xml";
+    }
+
+    public static String DeleteManga(String id) {
+        return "https://myanimelist.net/api/mangalist/delete/" + id + ".xml";
+    }
+
     public static String readFile(Context context, String filename) {
         StringBuffer fileContent = new StringBuffer("");
         FileInputStream fis;

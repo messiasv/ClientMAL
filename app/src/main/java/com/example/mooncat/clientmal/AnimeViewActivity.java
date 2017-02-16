@@ -3,11 +3,21 @@ package com.example.mooncat.clientmal;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class AnimeViewActivity extends AppCompatActivity implements ImageDownloader.Listener {
@@ -20,14 +30,18 @@ public class AnimeViewActivity extends AppCompatActivity implements ImageDownloa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anime_view);
         mAnime = (Anime) getIntent().getSerializableExtra("anime");
-        try {
-            setElements();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        setElements();
+
+        findViewById(R.id.animeViewDelete).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                v.setEnabled(false);
+                deleteAnime();
+            }
+        });
     }
 
-    void setElements() throws IOException {
+    void setElements() {
         ((TextView) findViewById(R.id.animeViewTitle)).setText(mAnime.getTitle());
         ((TextView) findViewById(R.id.animeViewStatus)).append(mAnime.getStatus());
         ((TextView) findViewById(R.id.animeViewType)).append(mAnime.getType());
@@ -40,6 +54,33 @@ public class AnimeViewActivity extends AppCompatActivity implements ImageDownloa
 
         new ImageDownloader(this).execute(mAnime.getImage());
         mImageView = (ImageView) findViewById(R.id.animeViewImage);
+    }
+
+    void deleteAnime() {
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+
+        StringRequest deleteAnimeRequest = new StringRequest(Request.Method.GET, Tools.DeleteAnime(mAnime.getId()),
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        AnimeViewActivity.this.onBackPressed();
+                    }
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> params = new HashMap<>();
+
+                String creds = Tools.readFile(getApplicationContext(), "creds");
+                params.put("Authorization", creds);
+                return params;
+            }
+        };
+        queue.add(deleteAnimeRequest);
     }
 
     @Override
