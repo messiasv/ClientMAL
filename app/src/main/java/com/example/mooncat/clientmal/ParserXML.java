@@ -275,4 +275,154 @@ public class ParserXML {
         }
         return user;
     }
+
+    static LinkedList<Anime> parseAnimeNameList(String xml)throws XmlPullParserException, IOException {
+        XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+        XmlPullParser parser = factory.newPullParser();
+
+        InputStream is = new ByteArrayInputStream(xml.getBytes("UTF-8"));
+        parser.setInput(is, "UTF-8");
+        int compt=0;
+        LinkedList<Anime> animeList = new LinkedList<>();
+        int eventType = parser.getEventType();
+        while (eventType != XmlPullParser.END_DOCUMENT) {
+            if (eventType == XmlPullParser.START_TAG) {
+                switch (parser.getName()){
+                    case "entry":
+                        animeList.add(new Anime()); break;
+                    case "id":
+                        parser.next();
+                        animeList.get(compt).setId(parser.getText());
+                        break;
+                    case "title":
+                        parser.next();
+                        animeList.get(compt).setTitle(parser.getText());
+                        break;
+                    case "english":
+                        parser.next();
+                        animeList.get(compt).setEnglish(parser.getText());
+                        break;
+                    case "type":
+                        parser.next();
+                        animeList.get(compt).setType(parser.getText());
+                        break;
+                    case "status":
+                        parser.next();
+                        animeList.get(compt).setStatus(parser.getText());
+                        break;
+                    case "image":
+                        parser.next();
+                        animeList.get(compt).setImage(parser.getText());
+                        break;
+                    case "synonyms:":
+                        parser.next();
+                        animeList.get(compt).setSynonyms(parser.getText());
+                        break;
+                    case "start_date":
+                        parser.next();
+                        animeList.get(compt).setStart(parser.getText());
+                        break;
+                    case "end_date":
+                        parser.next();
+                        animeList.get(compt).setEnd(parser.getText());
+                        break;
+                    case "episodes" :
+                        parser.next();
+                        animeList.get(compt).setEpisodes(parser.getText());
+                        break;
+                    case "score":
+                        parser.next();
+                        animeList.get(compt).setScore(parser.getText());
+                        break;
+                    case "synopsis":
+                        parser.next();
+                        animeList.get(compt).setSynopsis(parser.getText());
+                        break;
+                }
+            } else if (eventType == XmlPullParser.END_TAG) {
+                if(parser.getName().equals("entry")){
+                    compt++;
+                }
+            }
+            eventType = parser.next();
+        }
+        return animeList;
+    }
+
+    static LinkedList<Manga> parseMangaNameList(String xml)throws XmlPullParserException, IOException {
+        XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+        XmlPullParser parser = factory.newPullParser();
+
+        InputStream is = new ByteArrayInputStream(xml.getBytes("UTF-8"));
+        parser.setInput(is, "UTF-8");
+        int compt=0;
+        LinkedList<Manga> mangaList = new LinkedList<>();
+        int eventType = parser.getEventType();
+        while (eventType != XmlPullParser.END_DOCUMENT) {
+            if (eventType == XmlPullParser.START_TAG) {
+                switch (parser.getName()){
+                    case "entry":
+                        mangaList.add(new Manga()); break;
+                    case "id":
+                        parser.next();
+                        mangaList.get(compt).setId(parser.getText());
+                        break;
+                    case "title":
+                        parser.next();
+                        mangaList.get(compt).setTitle(parser.getText());
+                        break;
+                    case "english":
+                        parser.next();
+                        mangaList.get(compt).setEnglish(parser.getText());
+                        break;
+                    case "type":
+                        parser.next();
+                        mangaList.get(compt).setType(parser.getText());
+                        break;
+                    case "status":
+                        parser.next();
+                        mangaList.get(compt).setStatus(parser.getText());
+                        break;
+                    case "image":
+                        parser.next();
+                        mangaList.get(compt).setImage(parser.getText());
+                        break;
+                    case "synonyms:":
+                        parser.next();
+                        mangaList.get(compt).setSynonyms(parser.getText());
+                        break;
+                    case "start_date":
+                        parser.next();
+                        mangaList.get(compt).setStart(parser.getText());
+                        break;
+                    case "end_date":
+                        parser.next();
+                        mangaList.get(compt).setEnd(parser.getText());
+                        break;
+                    case "chapters" :
+                        parser.next();
+                        mangaList.get(compt).setChapters(parser.getText());
+                        break;
+                    case "volumes":
+                        parser.next();
+                        mangaList.get(compt).setVolumes(parser.getText());
+                        break;
+                    case "score":
+                        parser.next();
+                        mangaList.get(compt).setScore(parser.getText());
+                        break;
+                    case "synopsis":
+                        parser.next();
+                        mangaList.get(compt).setSynopsis(parser.getText());
+                        break;
+                }
+            } else if (eventType == XmlPullParser.END_TAG) {
+                if(parser.getName().equals("entry")){
+                    compt++;
+                }
+            }
+            eventType = parser.next();
+        }
+        return mangaList;
+    }
 }

@@ -25,13 +25,15 @@ public class AnimeListFragment extends Fragment {
     ArrayAdapter<Anime> adapter;
     protected String  mUsername;
     protected String  mAnimeListXml;
+    protected int mParserToUse;
 
     // newInstance constructor for creating fragment with arguments
-    public static AnimeListFragment newInstance(String username, String animeListXml) {
+    public static AnimeListFragment newInstance(String username, String animeListXml, int parserToUse) {
         AnimeListFragment animeListFragment = new AnimeListFragment();
         final Bundle args = new Bundle();
         args.putString("username", username);
         args.putString("animelist", animeListXml);
+        args.putInt("parser", parserToUse);
         animeListFragment.setArguments(args);
         return animeListFragment;
     }
@@ -43,11 +45,23 @@ public class AnimeListFragment extends Fragment {
         animeList = new LinkedList<>();
         mUsername = getArguments().getString("username");
         mAnimeListXml = getArguments().getString("animelist");
+        mParserToUse = getArguments().getInt("parser");
 
-        try {
-            animeList.addAll(ParserXML.parseUserAnimeList(mAnimeListXml));
-        } catch (XmlPullParserException | IOException e) {
-            e.printStackTrace();
+        switch (mParserToUse) {
+            case 0:
+                try {
+                    animeList.addAll(ParserXML.parseUserAnimeList(mAnimeListXml));
+                } catch (XmlPullParserException | IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case 1:
+                try {
+                    animeList.addAll(ParserXML.parseAnimeNameList(mAnimeListXml));
+                } catch (XmlPullParserException | IOException e) {
+                    e.printStackTrace();
+                }
+                break;
         }
     }
 

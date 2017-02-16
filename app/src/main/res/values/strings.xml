@@ -33,4 +33,6 @@
     <string name="incorrect_creds">Username or password incorrect</string>
     <string name="action_licenses">Open Source Licenses</string>
     <string name="action_about">About App</string>
+    <string name="search">Search</string>
+    <string name="go">Go</string>
 </resources>

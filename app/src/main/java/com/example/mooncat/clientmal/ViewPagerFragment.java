@@ -21,11 +21,12 @@ public class ViewPagerFragment extends Fragment {
     private UserInfoFragment.OnFragmentInteractionListener mListener;
 
     // newInstance constructor for creating fragment with arguments
-    public static ViewPagerFragment newInstance(String xmlAnime, String xmlManga) {
+    public static ViewPagerFragment newInstance(String xmlAnime, String xmlManga, int parserToUse) {
         ViewPagerFragment viewPagerFragment = new ViewPagerFragment();
         final Bundle args = new Bundle();
         args.putString("animelist", xmlAnime);
         args.putString("mangalist", xmlManga);
+        args.putInt("parser", parserToUse);
         viewPagerFragment.setArguments(args);
         return viewPagerFragment;
     }
@@ -42,10 +43,11 @@ public class ViewPagerFragment extends Fragment {
         String username = faActivity.getIntent().getStringExtra("username");
         String animeListXml = getArguments().getString("animelist");
         String mangaListXml = getArguments().getString("mangalist");
+        int parserToUse = getArguments().getInt("parser");
         ViewPager viewPager = (ViewPager) viewGroup.findViewById(R.id.viewPager);
         adapterViewPager = new MyPagerAdapter(faActivity.getSupportFragmentManager(),
                 faActivity.getApplicationContext(),
-                username, animeListXml, mangaListXml);
+                username, animeListXml, mangaListXml, parserToUse);
         viewPager.setAdapter(adapterViewPager);
         return viewGroup;
     }
@@ -55,14 +57,16 @@ public class ViewPagerFragment extends Fragment {
         private final String mUsername;
         private final String mAnimeListXml;
         private final String mMangaListXml;
+        private final int mParserToUse;
         private final Context mContext;
 
         MyPagerAdapter(FragmentManager fragmentManager, Context context,
-                       String username, String animeListXml, String mangaListXml) {
+                       String username, String animeListXml, String mangaListXml, int parserToUse) {
             super(fragmentManager);
             this.mUsername = username;
             this.mAnimeListXml = animeListXml;
             this.mMangaListXml = mangaListXml;
+            this.mParserToUse = parserToUse;
             this.mContext = context;
         }
 
@@ -77,10 +81,10 @@ public class ViewPagerFragment extends Fragment {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0: // Fragment # 0 - This will show AnimeListFragment
-                    return AnimeListFragment.newInstance(mUsername, mAnimeListXml);
+                    return AnimeListFragment.newInstance(mUsername, mAnimeListXml, mParserToUse);
 
                 case 1: // Fragment # 1 - This will show MangaListFragment
-                    return MangaListFragment.newInstance(mUsername, mMangaListXml);
+                    return MangaListFragment.newInstance(mUsername, mMangaListXml, mParserToUse);
                 default:
                     return null;
             }

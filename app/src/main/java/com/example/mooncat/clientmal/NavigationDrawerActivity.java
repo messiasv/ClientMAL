@@ -106,7 +106,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
     }
 
     public void createVPFragment() {
-        vpFragment = ViewPagerFragment.newInstance(mAnimeListXml, mMangaListXml);
+        vpFragment = ViewPagerFragment.newInstance(mAnimeListXml, mMangaListXml, 0);
     }
 
     @Override
@@ -166,6 +166,9 @@ public class NavigationDrawerActivity extends AppCompatActivity
                     .addToBackStack(null)
                     .commit();
 
+        } else if (id == R.id.nav_search) {
+            Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_settings) { // TODO: add the calls to the respective activities
 
         } else if (id == R.id.nav_about) {

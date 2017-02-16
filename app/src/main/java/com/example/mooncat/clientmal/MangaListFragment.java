@@ -24,13 +24,15 @@ public class MangaListFragment extends Fragment {
     ArrayAdapter<Manga> adapter;
     protected String mUsername;
     protected String mMangaListXml;
+    protected int mParserToUse;
 
     // newInstance constructor for creating fragment with arguments
-    public static MangaListFragment newInstance(String username, String mangaListXml) {
+    public static MangaListFragment newInstance(String username, String mangaListXml, int parserToUse) {
         MangaListFragment mangaListFragment = new MangaListFragment();
         final Bundle args = new Bundle();
         args.putString("username", username);
         args.putString("mangalist", mangaListXml);
+        args.putInt("parser", parserToUse);
         mangaListFragment.setArguments(args);
         return mangaListFragment;
     }
@@ -42,11 +44,23 @@ public class MangaListFragment extends Fragment {
         mangaList = new LinkedList<>();
         mUsername = getArguments().getString("username");
         mMangaListXml = getArguments().getString("mangalist");
+        mParserToUse = getArguments().getInt("parser");
 
-        try {
-            mangaList.addAll(ParserXML.parseUserMangaList(mMangaListXml));
-        } catch (XmlPullParserException | IOException e) {
-            e.printStackTrace();
+        switch (mParserToUse) {
+            case 0:
+                try {
+                    mangaList.addAll(ParserXML.parseUserMangaList(mMangaListXml));
+                } catch (XmlPullParserException | IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case 1:
+                try {
+                    mangaList.addAll(ParserXML.parseMangaNameList(mMangaListXml));
+                } catch (XmlPullParserException | IOException e) {
+                    e.printStackTrace();
+                }
+                break;
         }
     }
 

@@ -28,7 +28,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AboutActivity"
-            android:parentActivityName=".NavigationDrawerActivity"/>
+            android:parentActivityName=".NavigationDrawerActivity" />
+        <activity android:name=".SearchActivity"/>
     </application>
 
 </manifest>

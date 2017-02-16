@@ -8,6 +8,9 @@
         <item
             android:id="@+id/nav_list"
             android:title="User list" />
+        <item
+            android:id="@+id/nav_search"
+            android:title="Search" />
     </group>
 
     <item android:title="Other">

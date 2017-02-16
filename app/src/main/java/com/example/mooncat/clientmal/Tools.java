@@ -4,6 +4,8 @@ import android.content.Context;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 public class Tools {
 
@@ -17,6 +19,18 @@ public class Tools {
 
     public static String searchUserMangaListRequest(String username) {
         return "https://myanimelist.net/malappinfo.php?u=" + username + "&status=all&type=manga";
+    }
+
+    public static String searchAnime(String name) throws UnsupportedEncodingException {
+        String requete = "https://myanimelist.net/api/anime/search.xml?q=";
+        String nameEncoded = "" + URLEncoder.encode(name, "UTF-8");
+        return requete + nameEncoded;
+    }
+
+    public static String searchManga(String name) throws UnsupportedEncodingException {
+        String requete = "https://myanimelist.net/api/manga/search.xml?q=";
+        String nameEncoded = "" + URLEncoder.encode(name, "UTF-8");
+        return requete + nameEncoded;
     }
 
     public static String readFile(Context context, String filename) {
