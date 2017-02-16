@@ -13,7 +13,7 @@ class Anime extends Media {
 
     @Override
     public void setStatus(String status) {
-        switch (status) {
+        switch (status != null ? status : "") {
             case "1":
                 this.setStatus("Airing");
                 break;
@@ -30,7 +30,7 @@ class Anime extends Media {
 
     @Override
     public void setMyStatus(String status) {
-        switch (status) {
+        switch (status != null ? status : "") {
             case "1":
                 this.setMyStatus("Watching");
                 break;
@@ -53,7 +53,7 @@ class Anime extends Media {
 
     @Override
     public void setType(String type) {
-        switch (type) {
+        switch (type != null ? type : "") {
             case "0":
                 this.setType("Unknown");
                 break;
@@ -76,16 +76,16 @@ class Anime extends Media {
                 this.setType("Music");
                 break;
             default:
-                super.setType(type);
+                super.setType("");
         }
     }
 
     public void setEpisodes(String episodes) {
-        this.episodes = episodes;
+        this.episodes = episodes != null ? episodes : "";
     }
 
     public void setMyWatchedEpisodes(String myWatchedEpisodes) {
-        this.myWatchedEpisodes = myWatchedEpisodes;
+        this.myWatchedEpisodes = myWatchedEpisodes != null ? myWatchedEpisodes : "";
     }
 
     public String getEpisodes() {

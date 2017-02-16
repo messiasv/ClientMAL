@@ -2,7 +2,7 @@ package com.example.mooncat.clientmal;
 
 import java.io.Serializable;
 
-public class Media implements Serializable {
+public abstract class Media implements Serializable {
     private String title;
     private String english;
     private String status;
@@ -38,7 +38,7 @@ public class Media implements Serializable {
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.title = title != null ? title : "";
     }
 
     public void setEnglish(String english) {
@@ -54,7 +54,7 @@ public class Media implements Serializable {
     }
 
     public void setImage(String image) {
-        this.image = image;
+        this.image = image != null ? image : "";
     }
 
     public void setSynonyms(String synonyms) {
@@ -62,23 +62,23 @@ public class Media implements Serializable {
     }
 
     public void setStart(String start) {
-        this.start = start;
+        this.start = start != null ? start : "";
     }
 
     public void setEnd(String end) {
-        this.end = end;
+        this.end = end != null ? end : "";
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.id = id != null ? id : "";
     }
 
     public void setScore(String score) {
-        this.score = score;
+        this.score = score != null ? score : "" ;
     }
 
     public void setSynopsis(String synopsis) {
-        this.synopsis = synopsis;
+        this.synopsis = synopsis != null ? synopsis : "";
     }
 
     public void setMyStartDate(String myStartDate) {

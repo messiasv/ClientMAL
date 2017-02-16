@@ -17,7 +17,7 @@ class Manga extends Media{
 
     @Override
     public void setStatus(String status) {
-        switch (status) {
+        switch (status != null ? status : "") {
             case "1":
                 this.setStatus("Publishing");
                 break;
@@ -34,7 +34,7 @@ class Manga extends Media{
 
     @Override
     public void setMyStatus(String status) {
-        switch (status) {
+        switch (status != null ? status : "") {
             case "1":
                 this.setMyStatus("Reading");
                 break;
@@ -61,19 +61,19 @@ class Manga extends Media{
     }
 
     public void setChapters(String chapters) {
-        this.chapters = chapters;
+        this.chapters = chapters != null ? chapters : "";
     }
 
     public void setVolumes(String volumes) {
-        this.volumes = volumes;
+        this.volumes = volumes != null ? volumes : "";
     }
 
     public void setMyReadChapters(String myReadChapters) {
-        this.myReadChapters = myReadChapters;
+        this.myReadChapters = myReadChapters != null ? myReadChapters : "";
     }
 
     public void setMyReadVolumes(String myReadVolumes) {
-        this.myReadVolumes = myReadVolumes;
+        this.myReadVolumes = myReadVolumes != null ? myReadVolumes : "";
     }
 
     public String getChapters() {
