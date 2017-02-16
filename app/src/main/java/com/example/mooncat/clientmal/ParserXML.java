@@ -27,6 +27,7 @@ public class ParserXML {
                         animeList.add(new Anime());
                         break;
                     case "series_animedb_id":
+                        parser.next();
                         animeList.get(compt).setId(parser.getText());
                         break;
                     case "series_title":
@@ -108,6 +109,7 @@ public class ParserXML {
                         mangaList.add(new Manga());
                         break;
                     case "series_mangadb_id":
+                        parser.next();
                         mangaList.get(compt).setId(parser.getText());
                         break;
                     case "series_title":
