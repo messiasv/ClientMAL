@@ -33,12 +33,65 @@ public class Tools {
         return requete + nameEncoded;
     }
 
+    public static String AddAnime(String id) throws UnsupportedEncodingException {
+        String xmlEncoded = "" + URLEncoder.encode(UpdateAnimeValues(0, 6, 0), "UTF-8");
+        return "https://myanimelist.net/api/animelist/add/" + id + ".xml?data=" + xmlEncoded;
+    }
+
+    public static String AddManga(String id) throws UnsupportedEncodingException {
+        String xmlEncoded = "" + URLEncoder.encode(UpdateMangaValues(0, 0, 6, 0), "UTF-8");
+        return "https://myanimelist.net/api/mangalist/add/" + id + ".xml?data=" + xmlEncoded;
+    }
+
     public static String DeleteAnime(String id) {
         return "https://myanimelist.net/api/animelist/delete/" + id + ".xml";
     }
 
     public static String DeleteManga(String id) {
         return "https://myanimelist.net/api/mangalist/delete/" + id + ".xml";
+    }
+
+    public static String UpdateAnimeValues(int episode, int status, int score) {
+        String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<entry>\n" +
+                "\t<episode>" + episode + "</episode>\n" +
+                "\t<status>" + status + "</status>\n" +
+                "\t<score>" + score + "</score>\n" +
+                "\t<storage_type></storage_type>\n" +
+                "\t<storage_value></storage_value>\n" +
+                "\t<times_rewatched></times_rewatched>\n" +
+                "\t<rewatch_value></rewatch_value>\n" +
+                "\t<date_start></date_start>\n" +
+                "\t<date_finish></date_finish>\n" +
+                "\t<priority></priority>\n" +
+                "\t<enable_discussion></enable_discussion>\n" +
+                "\t<enable_rewatching></enable_rewatching>\n" +
+                "\t<comments></comments>\n" +
+                "\t<tags>test tag, 2nd tag</tags>\n" +
+                "</entry>";
+        return xml;
+    }
+
+    public static String UpdateMangaValues(int chapters, int volumes, int status, int score) {
+        String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<entry>\n" +
+                "\t<chapter>" + chapters + "</chapter>\n" +
+                "\t<volume>" + volumes + "</volume>\n" +
+                "\t<status>" + status + "</status>\n" +
+                "\t<score>" + score + "</score>\n" +
+                "\t<times_reread></times_reread>\n" +
+                "\t<reread_value></reread_value>\n" +
+                "\t<date_start></date_start>\n" +
+                "\t<date_finish></date_finish>\n" +
+                "\t<priority></priority>\n" +
+                "\t<enable_discussion></enable_discussion>\n" +
+                "\t<enable_rereading></enable_rereading>\n" +
+                "\t<comments></comments>\n" +
+                "\t<scan_group></scan_group>\n" +
+                "\t<tags></tags>\n" +
+                "\t<retail_volumes></retail_volumes>\n" +
+                "</entry>";
+        return xml;
     }
 
     public static String readFile(Context context, String filename) {

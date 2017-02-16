@@ -16,6 +16,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -36,7 +37,15 @@ public class AnimeViewActivity extends AppCompatActivity implements ImageDownloa
             @Override
             public void onClick(View v) {
                 v.setEnabled(false);
-                deleteAnime();
+                animeRequest(2);
+            }
+        });
+
+        findViewById(R.id.animeViewAdd).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                v.setEnabled(false);
+                animeRequest(0);
             }
         });
     }
@@ -55,15 +64,27 @@ public class AnimeViewActivity extends AppCompatActivity implements ImageDownloa
         new ImageDownloader(this).execute(mAnime.getImage());
         mImageView = (ImageView) findViewById(R.id.animeViewImage);
     }
-
-    void deleteAnime() {
+    // mode: 0_add 1_update 2_delete
+    void animeRequest(int mode) {
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
-        StringRequest deleteAnimeRequest = new StringRequest(Request.Method.GET, Tools.DeleteAnime(mAnime.getId()),
+        String url = "";
+        switch (mode) {
+            case 0:
+                try {
+                    url = Tools.AddAnime(mAnime.getId());
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case 2:
+                url = Tools.DeleteAnime(mAnime.getId());
+        }
+        StringRequest animeRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        AnimeViewActivity.this.onBackPressed();
+                        Toast.makeText(AnimeViewActivity.this, response, Toast.LENGTH_LONG).show();
                     }
                 }, new Response.ErrorListener() {
 
@@ -80,7 +101,7 @@ public class AnimeViewActivity extends AppCompatActivity implements ImageDownloa
                 return params;
             }
         };
-        queue.add(deleteAnimeRequest);
+        queue.add(animeRequest);
     }
 
     @Override

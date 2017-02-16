@@ -17,6 +17,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -36,7 +37,15 @@ public class MangaViewActivity extends AppCompatActivity implements ImageDownloa
             @Override
             public void onClick(View v) {
                 v.setEnabled(false);
-                deleteManga();
+                mangaRequest(2);
+            }
+        });
+
+        findViewById(R.id.mangaViewAdd).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                v.setEnabled(false);
+                mangaRequest(0);
             }
         });
     }
@@ -72,14 +81,28 @@ public class MangaViewActivity extends AppCompatActivity implements ImageDownloa
         mImageView = (ImageView) findViewById(R.id.mangaViewImage);
     }
 
-    void deleteManga() {
+    // mode: 0_add 1_update 2_delete
+    void mangaRequest(int mode) {
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
-        StringRequest deleteMangaRequest = new StringRequest(Request.Method.GET, Tools.DeleteManga(mManga.getId()),
+        String url = "";
+        switch (mode) {
+            case 0:
+                try {
+                    url = Tools.AddManga(mManga.getId());
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case 2:
+                url = Tools.DeleteManga(mManga.getId());
+        }
+
+        StringRequest deleteMangaRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        MangaViewActivity.this.onBackPressed();
+                        Toast.makeText(MangaViewActivity.this, response, Toast.LENGTH_LONG).show();
                     }
                 }, new Response.ErrorListener() {
 
