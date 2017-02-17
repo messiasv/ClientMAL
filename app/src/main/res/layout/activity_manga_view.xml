@@ -47,17 +47,62 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/mangaViewType" />
 
-            <TextView
-                android:text="Chapters: "
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/mangaViewChapters" />
+                android:orientation="horizontal"
+                >
 
-            <TextView
-                android:text="Volumes: "
+                <TextView
+                    android:text="Chapters: "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/Chapters" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:id="@+id/mangaViewMyChapters"/>
+
+                <TextView
+                    android:text=" / "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/mangaViewChapters"/>
+            </LinearLayout>
+
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/mangaViewVolumes" />
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:text="Volumes: "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/Volumes" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:id="@+id/mangaViewMyVolumes"/>
+
+                <TextView
+                    android:text=" / "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/mangaViewVolumes"/>
+            </LinearLayout>
+
+
 
             <TextView
                 android:text="Start date: "
@@ -112,31 +157,31 @@
                     >
                 </Spinner>
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <Button
-                    android:text="delete"
-                    android:id="@+id/mangaViewDelete"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <Button
-                    android:text="add"
-                    android:id="@+id/mangaViewAdd"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:text="add"
+                android:id="@+id/mangaViewAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:text="delete"
+                android:id="@+id/mangaViewDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
 
         <TextView
             android:text="Synonyms: "

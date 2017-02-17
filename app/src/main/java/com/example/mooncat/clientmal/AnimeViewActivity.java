@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,7 +21,6 @@ import com.android.volley.toolbox.Volley;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public class AnimeViewActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -55,10 +55,14 @@ public class AnimeViewActivity extends AppCompatActivity implements AdapterView.
         ((TextView) findViewById(R.id.animeViewTitle)).setText(mAnime.getTitle());
         ((TextView) findViewById(R.id.animeViewStatus)).append(mAnime.getStatus());
         ((TextView) findViewById(R.id.animeViewType)).append(mAnime.getType());
-        ((TextView) findViewById(R.id.animeViewEpisodes)).append(mAnime.getMyWatchedEpisodes() + " / " + (Objects.equals(mAnime.getEpisodes(), "0") ?"?":mAnime.getEpisodes()) );
+
+        EditText editText = (EditText)findViewById(R.id.animeViewMyEpisodes);
+        editText.setText(mAnime.getMyWatchedEpisodes());
+
+        ((TextView) findViewById(R.id.animeViewEpisodes)).append((mAnime.getEpisodes().equals("0") ? "?" : mAnime.getEpisodes()) );
         ((TextView) findViewById(R.id.animeViewSynonyms)).append(mAnime.getSynonyms());
-        ((TextView) findViewById(R.id.animeViewStart)).append(Objects.equals(mAnime.getStart(), "0000-00-00") ?"?":mAnime.getStart());
-        ((TextView) findViewById(R.id.animeViewEnd)).append(Objects.equals(mAnime.getEnd(), "0000-00-00") ?"?":mAnime.getEnd());
+        ((TextView) findViewById(R.id.animeViewStart)).append(mAnime.getStart().equals("0000-00-00") ? "?" : mAnime.getStart());
+        ((TextView) findViewById(R.id.animeViewEnd)).append(mAnime.getEnd().equals("0000-00-00") ? "?" : mAnime.getEnd());
 
         Spinner score_spinner = (Spinner) findViewById(R.id.animeViewMyScoreValue);
         score_spinner.setOnItemSelectedListener(this);
@@ -161,7 +165,6 @@ public class AnimeViewActivity extends AppCompatActivity implements AdapterView.
                 break;
             case "Plan to Watch":
                 mAnime.setMyStatus("6");
-                break;
         }
     }
 
@@ -170,7 +173,7 @@ public class AnimeViewActivity extends AppCompatActivity implements AdapterView.
 
     }
 
-    public void setDefaultScorePrompt(Spinner spinner) {
+    public void setDefaultScorePrompt(Spinner spinner){
         if (mAnime.getMyScore().equals("")) {
             spinner.setEnabled(false);
         } else {
@@ -207,7 +210,6 @@ public class AnimeViewActivity extends AppCompatActivity implements AdapterView.
                     break;
                 case "10":
                     spinner.setSelection(10);
-                    break;
             }
         }
     }
@@ -231,7 +233,6 @@ public class AnimeViewActivity extends AppCompatActivity implements AdapterView.
                     break;
                 case 6:
                     spinner.setSelection(4);
-                    break;
             }
         }
     }

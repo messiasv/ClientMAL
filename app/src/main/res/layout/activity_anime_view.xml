@@ -46,11 +46,33 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/animeViewType" />
 
-            <TextView
-                android:text="Episodes: "
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/animeViewEpisodes" />X
+                android:orientation="horizontal">
+
+                <TextView
+                    android:text="Episodes: "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/Episodes"/>
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:id="@+id/animeViewMyEpisodes" />
+
+                <TextView
+                    android:text=" / "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/animeViewEpisodes"/>
+            </LinearLayout>
+
+
 
             <TextView
                 android:text="Start date: "
@@ -106,31 +128,31 @@
                 </Spinner>
 
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <Button
-                    android:text="delete"
-                    android:id="@+id/animeViewDelete"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <Button
-                    android:text="add"
-                    android:id="@+id/animeViewAdd"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:text="add"
+                android:id="@+id/animeViewAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:text="delete"
+                android:id="@+id/animeViewDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
 
             <TextView
                 android:text="Synonyms: "

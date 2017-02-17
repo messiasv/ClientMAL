@@ -2,9 +2,9 @@ package com.example.mooncat.clientmal;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,7 +21,6 @@ import com.android.volley.toolbox.Volley;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public class MangaViewActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
@@ -55,24 +54,25 @@ public class MangaViewActivity extends AppCompatActivity implements AdapterView.
         ((TextView) findViewById(R.id.mangaViewTitle)).setText(mManga.getTitle());
         ((TextView) findViewById(R.id.mangaViewStatus)).append(mManga.getStatus());
         ((TextView) findViewById(R.id.mangaViewType)).append(mManga.getType());
+
+        EditText chaptersEditText = (EditText) findViewById(R.id.mangaViewMyChapters);
+        chaptersEditText.setText(mManga.getMyReadChapters());
+        EditText volumesEditText = (EditText) findViewById(R.id.mangaViewMyVolumes);
+        volumesEditText.setText(mManga.getMyReadVolumes());
+
         ((TextView) findViewById(R.id.mangaViewVolumes))
-                .append(mManga.getMyReadVolumes()
-                        +" / "  +
-                        (mManga.getVolumes().equals("0")?"?":mManga.getVolumes()));
+                .append(mManga.getVolumes().equals("0")?"?":mManga.getVolumes());
         ((TextView) findViewById(R.id.mangaViewChapters))
-                .append(mManga.getMyReadChapters()
-                        +" / "  +
-                        (mManga.getChapters().equals("0")?"?":mManga.getChapters()));
-        Log.i("manga", "|" + mManga.getId()+"|");
+                .append(mManga.getChapters().equals("0")?"?":mManga.getChapters());
         ((TextView) findViewById(R.id.mangaViewSynonyms)).append(mManga.getSynonyms());
         ((TextView) findViewById(R.id.mangaViewStart))
                 .append(
-                        Objects.equals(mManga.getStart(),
+                        mManga.getStart().equals(
                                 "0000-00-00") ?
                                 "?" : mManga.getStart());
         ((TextView) findViewById(R.id.mangaViewEnd))
                 .append(
-                        Objects.equals(mManga.getEnd(),
+                        mManga.getEnd().equals(
                                 "0000-00-00") ?
                                 "?" : mManga.getEnd());
 
@@ -179,7 +179,6 @@ public class MangaViewActivity extends AppCompatActivity implements AdapterView.
                 break;
             case "Plan to Read":
                 mManga.setMyStatus("6");
-                break;
         }
     }
 
@@ -188,8 +187,8 @@ public class MangaViewActivity extends AppCompatActivity implements AdapterView.
        
     }
     
-    public void setDefaultScorePrompt(Spinner spinner){
-        if(mManga.getMyStatus().equals("")) {
+    public void setDefaultScorePrompt(Spinner spinner) {
+        if (mManga.getMyScore().equals("")) {
             spinner.setEnabled(false);
         } else {
             switch (mManga.getMyScore()) {
@@ -225,12 +224,11 @@ public class MangaViewActivity extends AppCompatActivity implements AdapterView.
                     break;
                 case "10":
                     spinner.setSelection(10);
-                    break;
             }
         }
     }
 
-    public void setDefaultStatusPrompt(Spinner spinner) {
+    public void setDefaultStatusPrompt(Spinner spinner){
         if(mManga.getMyStatus().equals("")) {
             spinner.setEnabled(false);
         } else {
@@ -249,7 +247,6 @@ public class MangaViewActivity extends AppCompatActivity implements AdapterView.
                     break;
                 case 6:
                     spinner.setSelection(4);
-                    break;
             }
         }
     }
