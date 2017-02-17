@@ -314,7 +314,7 @@ public class ParserXML {
                         parser.next();
                         animeList.get(compt).setImage(parser.getText());
                         break;
-                    case "synonyms:":
+                    case "synonyms":
                         parser.next();
                         animeList.get(compt).setSynonyms(parser.getText());
                         break;
@@ -387,7 +387,7 @@ public class ParserXML {
                         parser.next();
                         mangaList.get(compt).setImage(parser.getText());
                         break;
-                    case "synonyms:":
+                    case "synonyms":
                         parser.next();
                         mangaList.get(compt).setSynonyms(parser.getText());
                         break;
