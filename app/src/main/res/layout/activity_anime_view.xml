@@ -12,12 +12,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.mooncat.clientmal.AnimeViewActivity">
 
-    <TextView
-        android:text="Title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/animeViewTitle" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

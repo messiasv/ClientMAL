@@ -63,6 +63,7 @@ public class MangaViewActivity extends AppCompatActivity implements AdapterView.
                 mangaRequest(0);
             }
         });
+        this.getSupportActionBar().setTitle(mManga.getTitle());
     }
 
     void setElements() {

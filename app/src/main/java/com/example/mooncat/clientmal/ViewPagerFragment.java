@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +50,11 @@ public class ViewPagerFragment extends Fragment {
                 faActivity.getApplicationContext(),
                 username, animeListXml, mangaListXml, parserToUse);
         viewPager.setAdapter(adapterViewPager);
+        if(username != null) {
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(username + "'s Lists");
+        } else {
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Search Results");
+        }
         return viewGroup;
     }
 

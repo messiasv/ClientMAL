@@ -62,6 +62,7 @@ public class AnimeViewActivity extends AppCompatActivity implements AdapterView.
                 animeRequest(0);
             }
         });
+        this.getSupportActionBar().setTitle(mAnime.getTitle());
     }
 
     void setElements() {
