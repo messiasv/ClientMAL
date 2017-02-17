@@ -26,6 +26,7 @@ public class AnimeViewActivity extends AppCompatActivity implements AdapterView.
 
     NetworkImageView mImageView;
     Anime mAnime;
+    EditText editEpisodes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,15 @@ public class AnimeViewActivity extends AppCompatActivity implements AdapterView.
             public void onClick(View v) {
                 v.setEnabled(false);
                 animeRequest(2);
+            }
+        });
+
+        findViewById(R.id.animeViewUpdate).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mAnime.setMyWatchedEpisodes(editEpisodes.getText().toString());
+                view.setEnabled(false);
+                animeRequest(1);
             }
         });
 
@@ -56,8 +66,8 @@ public class AnimeViewActivity extends AppCompatActivity implements AdapterView.
         ((TextView) findViewById(R.id.animeViewStatus)).append(mAnime.getStatus());
         ((TextView) findViewById(R.id.animeViewType)).append(mAnime.getType());
 
-        EditText editText = (EditText)findViewById(R.id.animeViewMyEpisodes);
-        editText.setText(mAnime.getMyWatchedEpisodes());
+        editEpisodes = (EditText) findViewById(R.id.animeViewMyEpisodes);
+        editEpisodes.setText(mAnime.getMyWatchedEpisodes());
 
         ((TextView) findViewById(R.id.animeViewEpisodes)).append((mAnime.getEpisodes().equals("0") ? "?" : mAnime.getEpisodes()) );
         ((TextView) findViewById(R.id.animeViewSynonyms)).append(mAnime.getSynonyms());
@@ -83,6 +93,14 @@ public class AnimeViewActivity extends AppCompatActivity implements AdapterView.
             case 0:
                 try {
                     url = Tools.AddAnime(mAnime.getId());
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case 1 :
+                setNextValues(mAnime);
+                try {
+                    url = Tools.UpdateAnime(mAnime.getId(), mAnime.getMyWatchedEpisodes(), mAnime.getMyStatus(), mAnime.getMyScore());
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
@@ -233,6 +251,16 @@ public class AnimeViewActivity extends AppCompatActivity implements AdapterView.
                     break;
                 case 6:
                     spinner.setSelection(4);
+            }
+        }
+    }
+
+    public void setNextValues(Anime anime){
+        if(!anime.getEpisodes().equals("0")) {
+            if (anime.getMyStatus().equals("2")) {
+                anime.setMyWatchedEpisodes(anime.getEpisodes());
+            }else if(Integer.parseInt(anime.getMyWatchedEpisodes()) >= Integer.parseInt(anime.getEpisodes())){
+                anime.setMyWatchedEpisodes(anime.getEpisodes());
             }
         }
     }

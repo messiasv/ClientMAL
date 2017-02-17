@@ -34,13 +34,23 @@ public class Tools {
     }
 
     public static String AddAnime(String id) throws UnsupportedEncodingException {
-        String xmlEncoded = "" + URLEncoder.encode(UpdateAnimeValues(0, 6, 0), "UTF-8");
+        String xmlEncoded = "" + URLEncoder.encode(UpdateAnimeValues("0", "6", "0"), "UTF-8");
         return "https://myanimelist.net/api/animelist/add/" + id + ".xml?data=" + xmlEncoded;
     }
 
     public static String AddManga(String id) throws UnsupportedEncodingException {
-        String xmlEncoded = "" + URLEncoder.encode(UpdateMangaValues(0, 0, 6, 0), "UTF-8");
+        String xmlEncoded = "" + URLEncoder.encode(UpdateMangaValues("0", "0", "6", "0"), "UTF-8");
         return "https://myanimelist.net/api/mangalist/add/" + id + ".xml?data=" + xmlEncoded;
+    }
+
+    public static String UpdateAnime(String id, String episode, String status, String score) throws UnsupportedEncodingException {
+        String xmlEncoded = "" + URLEncoder.encode(UpdateAnimeValues(episode, status, score), "UTF-8");
+        return "https://myanimelist.net/api/animelist/update/" + id + ".xml?data=" + xmlEncoded;
+    }
+
+    public static String UpdateManga(String id, String chapters, String volumes, String status, String score) throws UnsupportedEncodingException {
+        String xmlEncoded = "" + URLEncoder.encode(UpdateMangaValues(chapters, volumes, status, score), "UTF-8");
+        return "https://myanimelist.net/api/mangalist/update/" + id + ".xml?data=" + xmlEncoded;
     }
 
     public static String DeleteAnime(String id) {
@@ -51,7 +61,7 @@ public class Tools {
         return "https://myanimelist.net/api/mangalist/delete/" + id + ".xml";
     }
 
-    public static String UpdateAnimeValues(int episode, int status, int score) {
+    public static String UpdateAnimeValues(String episode, String status, String score) {
         String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<entry>\n" +
                 "\t<episode>" + episode + "</episode>\n" +
@@ -72,7 +82,7 @@ public class Tools {
         return xml;
     }
 
-    public static String UpdateMangaValues(int chapters, int volumes, int status, int score) {
+    public static String UpdateMangaValues(String chapters, String volumes, String status, String score) {
         String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<entry>\n" +
                 "\t<chapter>" + chapters + "</chapter>\n" +

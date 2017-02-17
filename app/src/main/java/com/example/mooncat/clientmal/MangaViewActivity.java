@@ -26,6 +26,8 @@ public class MangaViewActivity extends AppCompatActivity implements AdapterView.
 
     NetworkImageView mImageView;
     Manga mManga;
+    EditText editChapters;
+    EditText editVolumes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,16 @@ public class MangaViewActivity extends AppCompatActivity implements AdapterView.
             public void onClick(View v) {
                 v.setEnabled(false);
                 mangaRequest(2);
+            }
+        });
+
+        findViewById(R.id.mangaViewUpdate).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mManga.setMyReadVolumes(editVolumes.getText().toString());
+                mManga.setMyReadChapters(editChapters.getText().toString());
+                v.setEnabled(false);
+                mangaRequest(1);
             }
         });
 
@@ -55,10 +67,10 @@ public class MangaViewActivity extends AppCompatActivity implements AdapterView.
         ((TextView) findViewById(R.id.mangaViewStatus)).append(mManga.getStatus());
         ((TextView) findViewById(R.id.mangaViewType)).append(mManga.getType());
 
-        EditText chaptersEditText = (EditText) findViewById(R.id.mangaViewMyChapters);
-        chaptersEditText.setText(mManga.getMyReadChapters());
-        EditText volumesEditText = (EditText) findViewById(R.id.mangaViewMyVolumes);
-        volumesEditText.setText(mManga.getMyReadVolumes());
+        editChapters = (EditText) findViewById(R.id.mangaViewMyChapters);
+        editChapters.setText(mManga.getMyReadChapters());
+        editVolumes = (EditText) findViewById(R.id.mangaViewMyVolumes);
+        editVolumes.setText(mManga.getMyReadVolumes());
 
         ((TextView) findViewById(R.id.mangaViewVolumes))
                 .append(mManga.getVolumes().equals("0")?"?":mManga.getVolumes());
@@ -76,12 +88,12 @@ public class MangaViewActivity extends AppCompatActivity implements AdapterView.
                                 "0000-00-00") ?
                                 "?" : mManga.getEnd());
 
-        Spinner score_spinner = (Spinner) findViewById(R.id.mangaViewMyScoreValue);
-        score_spinner.setOnItemSelectedListener(this);
-        setDefaultScorePrompt(score_spinner);
-        Spinner status_spinner = (Spinner) findViewById(R.id.mangaViewMyStatusValue);
-        status_spinner.setOnItemSelectedListener(this);
-        setDefaultStatusPrompt(status_spinner);
+        Spinner scoreSpinner = (Spinner) findViewById(R.id.mangaViewMyScoreValue);
+        scoreSpinner.setOnItemSelectedListener(this);
+        setDefaultScorePrompt(scoreSpinner);
+        Spinner statusSpinner = (Spinner) findViewById(R.id.mangaViewMyStatusValue);
+        statusSpinner.setOnItemSelectedListener(this);
+        setDefaultStatusPrompt(statusSpinner);
         
         mImageView = (NetworkImageView) findViewById(R.id.mangaViewImage);
         ImageDownloader.downloadImage(mManga.getImage(),this,mImageView);
@@ -100,11 +112,19 @@ public class MangaViewActivity extends AppCompatActivity implements AdapterView.
                     e.printStackTrace();
                 }
                 break;
+            case 1:
+                setNextValues(mManga);
+                try {
+                    url = Tools.UpdateManga(mManga.getId(), mManga.getMyReadChapters(), mManga.getMyReadVolumes(), mManga.getMyStatus(), mManga.getMyScore());
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                break;
             case 2:
                 url = Tools.DeleteManga(mManga.getId());
         }
 
-        StringRequest deleteMangaRequest = new StringRequest(Request.Method.GET, url,
+        StringRequest mangaRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -125,7 +145,7 @@ public class MangaViewActivity extends AppCompatActivity implements AdapterView.
                 return params;
             }
         };
-        queue.add(deleteMangaRequest);
+        queue.add(mangaRequest);
     }
 
     @Override
@@ -247,6 +267,23 @@ public class MangaViewActivity extends AppCompatActivity implements AdapterView.
                     break;
                 case 6:
                     spinner.setSelection(4);
+            }
+        }
+    }
+
+    public void setNextValues(Manga manga){
+        if(!manga.getChapters().equals("0")) {
+            if (manga.getMyStatus().equals("2")) {
+                manga.setMyReadChapters(manga.getChapters());
+            }else if(Integer.parseInt(manga.getMyReadChapters()) >= Integer.parseInt(manga.getChapters())){
+                manga.setMyReadChapters(manga.getChapters());
+            }
+        }
+        if(!manga.getVolumes().equals("0")){
+            if(manga.getMyStatus().equals("2")){
+                manga.setMyReadVolumes(manga.getVolumes());
+            }else if(Integer.parseInt(manga.getMyReadVolumes()) >= Integer.parseInt(manga.getVolumes())){
+                manga.setMyReadVolumes(manga.getVolumes());
             }
         }
     }
