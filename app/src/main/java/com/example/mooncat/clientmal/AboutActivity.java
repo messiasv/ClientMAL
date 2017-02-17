@@ -34,12 +34,13 @@ public class AboutActivity extends AppCompatActivity {
                         "file:///android_asset/open_source_licenses.html");
             }
         });
+        this.getSupportActionBar().setTitle("About");
     }
 
     private void displayLicensesAlertDialog(int layout, String title, String url) {
         WebView view = (WebView) LayoutInflater.from(this).inflate(layout, null);
         view.loadUrl(url);
-        AlertDialog mAlertDialog = new AlertDialog.Builder(this, R.style.Theme_AppCompat_Light_Dialog_Alert)
+        new AlertDialog.Builder(this, R.style.Theme_AppCompat_Light_Dialog_Alert)
                 .setTitle(title)
                 .setView(view)
                 .setPositiveButton(android.R.string.ok, null)
