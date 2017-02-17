@@ -66,7 +66,6 @@ public class MangaViewActivity extends AppCompatActivity implements AdapterView.
     }
 
     void setElements() {
-        ((TextView) findViewById(R.id.mangaViewTitle)).setText(mManga.getTitle());
         ((TextView) findViewById(R.id.mangaViewStatus)).append(mManga.getStatus());
         ((TextView) findViewById(R.id.mangaViewType)).append(mManga.getType());
 
@@ -128,6 +127,8 @@ public class MangaViewActivity extends AppCompatActivity implements AdapterView.
             findViewById(R.id.mangaViewDelete).setVisibility(View.GONE);
             findViewById(R.id.mangaViewMyScoreLayout).setVisibility(View.GONE);
             findViewById(R.id.mangaViewMyStatusLayout).setVisibility(View.GONE);
+        } else {
+            findViewById(R.id.mangaViewAdd).setVisibility(View.GONE);
         }
     }
 

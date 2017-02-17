@@ -65,7 +65,6 @@ public class AnimeViewActivity extends AppCompatActivity implements AdapterView.
     }
 
     void setElements() {
-        ((TextView) findViewById(R.id.animeViewTitle)).setText(mAnime.getTitle());
         ((TextView) findViewById(R.id.animeViewStatus)).append(mAnime.getStatus());
         ((TextView) findViewById(R.id.animeViewType)).append(mAnime.getType());
 
@@ -114,6 +113,8 @@ public class AnimeViewActivity extends AppCompatActivity implements AdapterView.
             findViewById(R.id.animeViewDelete).setVisibility(View.GONE);
             findViewById(R.id.animeViewMyScoreLayout).setVisibility(View.GONE);
             findViewById(R.id.animeViewMyStatusLayout).setVisibility(View.GONE);
+        } else {
+            findViewById(R.id.animeViewAdd).setVisibility(View.GONE);
         }
     }
     // mode: 0_add 1_update 2_delete
