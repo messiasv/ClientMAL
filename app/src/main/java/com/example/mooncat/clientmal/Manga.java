@@ -34,7 +34,34 @@ class Manga extends Media{
 
     @Override
     public void setType(String type) {
-        super.setType("Manga");
+        switch (type != null ? type : "") {
+            case "0":
+                this.setType("Unknown");
+                break;
+            case "1":
+                this.setType("Manga");
+                break;
+            case "2":
+                this.setType("Novel");
+                break;
+            case "3":
+                this.setType("One-shot");
+                break;
+            case "4":
+                this.setType("Doujinshi");
+                break;
+            case "5":
+                this.setType("Manhwa");
+                break;
+            case "6":
+                this.setType("Manhua");
+                break;
+            case "7":
+                this.setType("OEL");
+                break;
+            default:
+                super.setType(type);
+        }
     }
 
     public void setChapters(String chapters) {
