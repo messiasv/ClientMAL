@@ -39,7 +39,7 @@ public class SearchActivity extends AppCompatActivity implements UserInfoFragmen
                 search(search);
             }
         });
-        this.getSupportActionBar().setTitle("Search");
+        this.getSupportActionBar().setTitle(getString(R.string.search));
     }
 
     void search(final String search) {

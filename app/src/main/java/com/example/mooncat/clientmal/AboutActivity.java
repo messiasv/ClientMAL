@@ -34,7 +34,7 @@ public class AboutActivity extends AppCompatActivity {
                         "file:///android_asset/open_source_licenses.html");
             }
         });
-        this.getSupportActionBar().setTitle("About");
+        this.getSupportActionBar().setTitle(R.string.about);
     }
 
     private void displayLicensesAlertDialog(int layout, String title, String url) {

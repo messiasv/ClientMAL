@@ -3,7 +3,7 @@
 
     <string name="anime_list">Anime List</string>
     <string name="manga_list">Manga List</string>
-    <string name="myanimelist_account_username_hint">Enter your myanimelist.net account username !</string>
+    <string name="myanimelist_account_username_hint">Connect to your myanimelist.net account !</string>
     <string name="username_hint">username</string>
     <string name="anime">Anime</string>
     <string name="manga">Manga</string>
@@ -35,6 +35,13 @@
     <string name="search">Search</string>
     <string name="go">Go</string>
     <string name="show_password">Show password</string>
+    <string name="about">About</string>
+    <string name="english_title">"English title"</string>
+    <string name="synopsis">"Synopsis"</string>
+    <string name="score">Score</string>
+    <string name="info">Info</string>
+    <string name="lists">Lists</string>
+    <string name="search_results">Search Results</string>
 
     <string-array name="score_array">
         <item>Select</item>

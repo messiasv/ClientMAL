@@ -41,7 +41,7 @@ public class UserInfoFragment extends Fragment {
 
         // Inflate the layout for this fragment
         vG = (ViewGroup) inflater.inflate(R.layout.fragment_user_info, container, false);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(username + "'s Info");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(username + " - " + getString(R.string.info));
         return vG;
     }
 

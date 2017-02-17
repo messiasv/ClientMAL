@@ -51,9 +51,9 @@ public class ViewPagerFragment extends Fragment {
                 username, animeListXml, mangaListXml, parserToUse);
         viewPager.setAdapter(adapterViewPager);
         if(username != null) {
-            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(username + "'s Lists");
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(username + " - " + getString(R.string.lists) );
         } else {
-            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Search Results");
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(R.string.search_results);
         }
         return viewGroup;
     }

@@ -92,10 +92,10 @@ public class AnimeViewActivity extends AppCompatActivity implements AdapterView.
         if (!mAnime.getSynopsis().equals("")) {
             TextView engTitle = new TextView(this);
             engTitle.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            engTitle.setText("English title: " + mAnime.getEnglish());
+            engTitle.setText(getString(R.string.english_title) + ": " + mAnime.getEnglish());
             TextView synopsis = new TextView(this);
             synopsis.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            synopsis.setText("Synopsis: ");
+            synopsis.setText(getString(R.string.synopsis) + ": ");
             TextView synopsisValue = new TextView(this);
             synopsisValue.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             synopsisValue.setText(mAnime.getSynopsis());
@@ -103,7 +103,7 @@ public class AnimeViewActivity extends AppCompatActivity implements AdapterView.
             synopsisValue.setMovementMethod(new ScrollingMovementMethod());
             TextView score = new TextView(this);
             score.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            score.setText("Score: " + mAnime.getScore());
+            score.setText(getString(R.string.score) + ": " + mAnime.getScore());
 
             ((LinearLayout) findViewById(R.id.animeViewLastContainer)).addView(engTitle);
             ((LinearLayout) findViewById(R.id.animeViewLastContainer)).addView(synopsis);
