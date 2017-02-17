@@ -53,7 +53,7 @@ class Anime extends Media {
                 this.setType("Music");
                 break;
             default:
-                super.setType("");
+                super.setType(type);
         }
     }
 
