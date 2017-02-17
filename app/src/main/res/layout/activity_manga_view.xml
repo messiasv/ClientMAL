@@ -71,17 +71,47 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/mangaViewEnd" />
 
-            <TextView
-                android:text="My score: "
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/mangaViewMyScore" />
+                android:orientation="horizontal">
 
-            <TextView
-                android:text="My status: "
+                <TextView
+                    android:text="My score: "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/mangaViewMyScore"
+                    />
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/mangaViewMyScoreValue"
+                    android:entries="@array/score_array"
+                    >
+                </Spinner>
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/mangaViewMyStatus" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:text="My status: "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/mangaViewMyStatus"
+                    />
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/mangaViewMyStatusValue"
+                    android:entries="@array/manga_status_array"
+                    >
+                </Spinner>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -108,11 +138,11 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-            <TextView
-                android:text="Synonyms: "
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/mangaViewSynonyms" />
+        <TextView
+            android:text="Synonyms: "
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/mangaViewSynonyms" />
 
     </LinearLayout>
 </LinearLayout>

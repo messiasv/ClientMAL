@@ -64,17 +64,48 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/animeViewEnd" />
 
-            <TextView
-                android:text="My score: "
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/animeViewMyScore" />
+                android:orientation="horizontal">
 
-            <TextView
-                android:text="My status: "
+                <TextView
+                    android:text="My score: "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/animeViewMyScore"
+                    />
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/animeViewMyScoreValue"
+                    android:entries="@array/score_array"
+                   >
+                </Spinner>
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/animeViewMyStatus" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:text="My status: "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/animeViewMyStatus"
+                   />
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/animeViewMyStatusValue"
+                    android:entries="@array/anime_status_array"
+                   >
+                </Spinner>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

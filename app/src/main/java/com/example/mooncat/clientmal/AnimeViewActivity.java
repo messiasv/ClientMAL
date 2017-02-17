@@ -3,6 +3,8 @@ package com.example.mooncat.clientmal;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,7 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class AnimeViewActivity extends AppCompatActivity {
+public class AnimeViewActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     NetworkImageView mImageView;
     Anime mAnime;
@@ -57,6 +59,13 @@ public class AnimeViewActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.animeViewSynonyms)).append(mAnime.getSynonyms());
         ((TextView) findViewById(R.id.animeViewStart)).append(Objects.equals(mAnime.getStart(), "0000-00-00") ?"?":mAnime.getStart());
         ((TextView) findViewById(R.id.animeViewEnd)).append(Objects.equals(mAnime.getEnd(), "0000-00-00") ?"?":mAnime.getEnd());
+
+        Spinner score_spinner = (Spinner) findViewById(R.id.animeViewMyScoreValue);
+        score_spinner.setOnItemSelectedListener(this);
+        setDefaultScorePrompt(score_spinner);
+        Spinner status_spinner = (Spinner) findViewById(R.id.animeViewMyStatusValue);
+        status_spinner.setOnItemSelectedListener(this);
+        setDefaultStatusPrompt(status_spinner);
 
         mImageView = (NetworkImageView) findViewById(R.id.animeViewImage);
         ImageDownloader.downloadImage(mAnime.getImage(),this,mImageView);
@@ -99,5 +108,131 @@ public class AnimeViewActivity extends AppCompatActivity {
             }
         };
         queue.add(animeRequest);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+      String test = adapterView.getItemAtPosition(i).toString();
+        switch(test){
+            case "Select":
+                mAnime.setMyScore("0");
+                break;
+            case "1 (Appalling)":
+                mAnime.setMyScore("1");
+                break;
+            case "2 (Horrible)":
+                mAnime.setMyScore("2");
+                break;
+            case "3 (Very Bad)":
+                mAnime.setMyScore("3");
+                break;
+            case "4 (Bad)":
+                mAnime.setMyScore("4");
+                break;
+            case "5 (Average)":
+                mAnime.setMyScore("5");
+                break;
+            case "6 (Fine)":
+                mAnime.setMyScore("6");
+                break;
+            case "7 (Good)":
+                mAnime.setMyScore("7");
+                break;
+            case "8 (Very Good)":
+                mAnime.setMyScore("8");
+                break;
+            case "9 (Great)":
+                mAnime.setMyScore("9");
+                break;
+            case "10 (Masterpiece)":
+                mAnime.setMyScore("10");
+                break;
+            case "Watching":
+                mAnime.setMyStatus("1");
+                break;
+            case "Completed":
+                mAnime.setMyStatus("2");
+                break;
+            case "On-Hold":
+                mAnime.setMyStatus("3");
+                break;
+            case "Dropped":
+                mAnime.setMyStatus("4");
+                break;
+            case "Plan to Watch":
+                mAnime.setMyStatus("6");
+                break;
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
+    public void setDefaultScorePrompt(Spinner spinner) {
+        if (mAnime.getMyScore().equals("")) {
+            spinner.setEnabled(false);
+        } else {
+            switch (mAnime.getMyScore()) {
+                case "0":
+                    spinner.setSelection(0);
+                    break;
+                case "1":
+                    spinner.setSelection(1);
+                    break;
+                case "2":
+                    spinner.setSelection(2);
+                    break;
+                case "3":
+                    spinner.setSelection(3);
+                    break;
+                case "4":
+                    spinner.setSelection(4);
+                    break;
+                case "5":
+                    spinner.setSelection(5);
+                    break;
+                case "6":
+                    spinner.setSelection(6);
+                    break;
+                case "7":
+                    spinner.setSelection(7);
+                    break;
+                case "8":
+                    spinner.setSelection(8);
+                    break;
+                case "9":
+                    spinner.setSelection(9);
+                    break;
+                case "10":
+                    spinner.setSelection(10);
+                    break;
+            }
+        }
+    }
+
+    public void setDefaultStatusPrompt(Spinner spinner) {
+        if (mAnime.getMyStatus().equals("")) {
+            spinner.setEnabled(false);
+        } else {
+            switch (Integer.parseInt(mAnime.getMyStatus())) {
+                case 1:
+                    spinner.setSelection(0);
+                    break;
+                case 2:
+                    spinner.setSelection(1);
+                    break;
+                case 3:
+                    spinner.setSelection(2);
+                    break;
+                case 4:
+                    spinner.setSelection(3);
+                    break;
+                case 6:
+                    spinner.setSelection(4);
+                    break;
+            }
+        }
     }
 }

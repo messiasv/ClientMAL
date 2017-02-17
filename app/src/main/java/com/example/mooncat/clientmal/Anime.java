@@ -29,29 +29,6 @@ class Anime extends Media {
     }
 
     @Override
-    public void setMyStatus(String status) {
-        switch (status != null ? status : "") {
-            case "1":
-                this.setMyStatus("Watching");
-                break;
-            case "2":
-                this.setMyStatus("Completed");
-                break;
-            case "3":
-                this.setMyStatus("On-Hold");
-                break;
-            case "4":
-                this.setMyStatus("Dropped");
-                break;
-            case "6":
-                this.setMyStatus("Plan to Watch");
-                break;
-            default:
-                super.setMyStatus(status);
-        }
-    }
-
-    @Override
     public void setType(String type) {
         switch (type != null ? type : "") {
             case "0":
