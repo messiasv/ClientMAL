@@ -34,6 +34,7 @@
     <string name="action_about">About App</string>
     <string name="search">Search</string>
     <string name="go">Go</string>
+    <string name="show_password">Show password</string>
 
     <string-array name="score_array">
         <item>Select</item>

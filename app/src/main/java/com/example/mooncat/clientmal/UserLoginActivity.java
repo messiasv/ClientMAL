@@ -4,9 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -40,6 +44,17 @@ public class UserLoginActivity extends AppCompatActivity {
         usernameEntry = (EditText) findViewById(R.id.MAL_login);
         passwordEntry = (EditText) findViewById(R.id.MAL_password);
         loginButton = (Button) findViewById(R.id.login_button);
+
+        ((CheckBox) findViewById(R.id.check_box_show_passwd)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    passwordEntry.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                } else {
+                    passwordEntry.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
+            }
+        });
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
