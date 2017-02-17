@@ -122,7 +122,6 @@ public class NavigationDrawerActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.navigation_drawer, menu);
         return true;
     }
 
@@ -131,13 +130,6 @@ public class NavigationDrawerActivity extends AppCompatActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -169,8 +161,6 @@ public class NavigationDrawerActivity extends AppCompatActivity
         } else if (id == R.id.nav_search) {
             Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_settings) { // TODO: add the calls to the respective activities
-
         } else if (id == R.id.nav_about) {
             Intent intent = new Intent(getApplicationContext(), AboutActivity.class);
             startActivity(intent);
