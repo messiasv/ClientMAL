@@ -9,7 +9,7 @@
     <string name="manga">Manga</string>
     <string name="image_desc">cover of the media</string>
     <string name="user_name_not_found_message">User not found !</string>
-    <string name="title_activity_navigation_drawer">NavigationDrawerActivity</string>
+    <string name="title_activity_navigation_drawer" translatable="false">NavigationDrawerActivity</string>
 
     <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
     <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
@@ -33,7 +33,7 @@
     <string name="action_licenses">Open Source Licenses</string>
     <string name="action_about">About App</string>
     <string name="search">Search</string>
-    <string name="go">Go</string>
+    <string name="go" translatable="false">Go</string>
     <string name="show_password">Show password</string>
     <string name="about">About</string>
     <string name="english_title">"English title"</string>
@@ -42,6 +42,10 @@
     <string name="info">Info</string>
     <string name="lists">Lists</string>
     <string name="search_results">Search Results</string>
+    <string name="user_info">User info</string>
+    <string name="user_list">User lists</string>
+    <string name="to_search">Search</string>
+    <string name="other">Other</string>
 
     <string-array name="score_array">
         <item>Select</item>

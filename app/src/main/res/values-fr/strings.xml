@@ -9,4 +9,36 @@
     <string name="username_hint">nom d\'utilisateur</string>
     <string name="app_name">Client MAL</string>
     <string name="user_name_not_found_message">Utilisateur introuvable !</string>
+    <string name="about">À propos</string>
+    <string name="action_about">À propos de l\'application</string>
+    <string name="action_licenses">Licences Open Source</string>
+    <string name="anime_stats">Statistiques Anime</string>
+    <string name="manga_stats">Statistiques Manga</string>
+    <string name="completed">Terminé</string>
+    <string name="days_spent">Jours passés</string>
+    <string name="dropped">Abandonné</string>
+    <string name="english_title">Titre Anglais</string>
+    <string name="incorrect_creds">Erreur de connexion</string>
+    <string name="info_username">nom d\'utilisateur</string>
+    <string name="info">Infos</string>
+    <string name="lists">Listes</string>
+    <string name="login_button">Connexion</string>
+    <string name="logout">Déconnexion</string>
+    <string name="navigation_drawer_close" translatable="false"></string>
+    <string name="on_hold">En pause</string>
+    <string name="password_hint">mot de passe</string>
+    <string name="plan_to_read">À lire</string>
+    <string name="plan_to_watch">À voir</string>
+    <string name="reading">En train de lire</string>
+    <string name="score">Score</string>
+    <string name="search">Recherche</string>
+    <string name="search_results">Résultats</string>
+    <string name="show_password">Afficher mot de passe</string>
+    <string name="synopsis">Résumé</string>
+    <string name="title_activity_navigation_drawer"></string>
+    <string name="watching">En train de voir</string>
+    <string name="to_search">Rechercher</string>
+    <string name="user_info">Infos</string>
+    <string name="user_list">Listes</string>
+    <string name="other">Autre</string>
 </resources>
