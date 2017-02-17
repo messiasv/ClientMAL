@@ -31,6 +31,7 @@
             android:contentDescription="@string/image_desc"/>
 
         <LinearLayout
+            android:id="@+id/mangaViewMainInfo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -117,6 +118,7 @@
                 android:id="@+id/mangaViewEnd" />
 
             <LinearLayout
+                android:id="@+id/mangaViewMyScoreLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -138,6 +140,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/mangaViewMyStatusLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -160,6 +163,7 @@
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/mangaViewLastContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">

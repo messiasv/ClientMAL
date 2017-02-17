@@ -2,9 +2,12 @@ package com.example.mooncat.clientmal;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -76,7 +79,9 @@ public class MangaViewActivity extends AppCompatActivity implements AdapterView.
                 .append(mManga.getVolumes().equals("0")?"?":mManga.getVolumes());
         ((TextView) findViewById(R.id.mangaViewChapters))
                 .append(mManga.getChapters().equals("0")?"?":mManga.getChapters());
-        ((TextView) findViewById(R.id.mangaViewSynonyms)).append(mManga.getSynonyms());
+        if (!mManga.getSynonyms().equals("")) {
+            ((TextView) findViewById(R.id.mangaViewSynonyms)).append(mManga.getSynonyms());
+        }
         ((TextView) findViewById(R.id.mangaViewStart))
                 .append(
                         mManga.getStart().equals(
@@ -97,6 +102,33 @@ public class MangaViewActivity extends AppCompatActivity implements AdapterView.
         
         mImageView = (NetworkImageView) findViewById(R.id.mangaViewImage);
         ImageDownloader.downloadImage(mManga.getImage(),this,mImageView);
+
+        if (!mManga.getSynopsis().equals("")) {
+            TextView engTitle = new TextView(this);
+            engTitle.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            engTitle.setText("English title: " + mManga.getEnglish());
+            TextView synopsis = new TextView(this);
+            synopsis.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            synopsis.setText("Synopsis: ");
+            TextView synopsisValue = new TextView(this);
+            synopsisValue.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            synopsisValue.setText(mManga.getSynopsis());
+            synopsisValue.setVerticalScrollBarEnabled(true);
+            synopsisValue.setMovementMethod(new ScrollingMovementMethod());
+            TextView score = new TextView(this);
+            score.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            score.setText("Score: " + mManga.getScore());
+
+            ((LinearLayout) findViewById(R.id.mangaViewLastContainer)).addView(engTitle);
+            ((LinearLayout) findViewById(R.id.mangaViewLastContainer)).addView(synopsis);
+            ((LinearLayout) findViewById(R.id.mangaViewLastContainer)).addView(synopsisValue);
+            ((LinearLayout) findViewById(R.id.mangaViewMainInfo)).addView(score);
+
+            findViewById(R.id.mangaViewUpdate).setVisibility(View.GONE);
+            findViewById(R.id.mangaViewDelete).setVisibility(View.GONE);
+            findViewById(R.id.mangaViewMyScoreLayout).setVisibility(View.GONE);
+            findViewById(R.id.mangaViewMyStatusLayout).setVisibility(View.GONE);
+        }
     }
 
     // mode: 0_add 1_update 2_delete

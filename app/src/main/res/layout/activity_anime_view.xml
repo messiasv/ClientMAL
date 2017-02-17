@@ -30,6 +30,7 @@
             android:id="@+id/animeViewImage"
             android:contentDescription="@string/image_desc"/>
         <LinearLayout
+            android:id="@+id/animeViewMainInfo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -87,6 +88,7 @@
                 android:id="@+id/animeViewEnd" />
 
             <LinearLayout
+                android:id="@+id/animeViewMyScoreLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -108,6 +110,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/animeViewMyStatusLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -131,6 +134,7 @@
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/animeViewLastContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">

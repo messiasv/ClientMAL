@@ -2,9 +2,12 @@ package com.example.mooncat.clientmal;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -70,7 +73,9 @@ public class AnimeViewActivity extends AppCompatActivity implements AdapterView.
         editEpisodes.setText(mAnime.getMyWatchedEpisodes());
 
         ((TextView) findViewById(R.id.animeViewEpisodes)).append((mAnime.getEpisodes().equals("0") ? "?" : mAnime.getEpisodes()) );
-        ((TextView) findViewById(R.id.animeViewSynonyms)).append(mAnime.getSynonyms());
+        if (!mAnime.getSynonyms().equals("")) {
+            ((TextView) findViewById(R.id.animeViewSynonyms)).append(mAnime.getSynonyms());
+        }
         ((TextView) findViewById(R.id.animeViewStart)).append(mAnime.getStart().equals("0000-00-00") ? "?" : mAnime.getStart());
         ((TextView) findViewById(R.id.animeViewEnd)).append(mAnime.getEnd().equals("0000-00-00") ? "?" : mAnime.getEnd());
 
@@ -83,6 +88,33 @@ public class AnimeViewActivity extends AppCompatActivity implements AdapterView.
 
         mImageView = (NetworkImageView) findViewById(R.id.animeViewImage);
         ImageDownloader.downloadImage(mAnime.getImage(),this,mImageView);
+
+        if (!mAnime.getSynopsis().equals("")) {
+            TextView engTitle = new TextView(this);
+            engTitle.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            engTitle.setText("English title: " + mAnime.getEnglish());
+            TextView synopsis = new TextView(this);
+            synopsis.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            synopsis.setText("Synopsis: ");
+            TextView synopsisValue = new TextView(this);
+            synopsisValue.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            synopsisValue.setText(mAnime.getSynopsis());
+            synopsisValue.setVerticalScrollBarEnabled(true);
+            synopsisValue.setMovementMethod(new ScrollingMovementMethod());
+            TextView score = new TextView(this);
+            score.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            score.setText("Score: " + mAnime.getScore());
+
+            ((LinearLayout) findViewById(R.id.animeViewLastContainer)).addView(engTitle);
+            ((LinearLayout) findViewById(R.id.animeViewLastContainer)).addView(synopsis);
+            ((LinearLayout) findViewById(R.id.animeViewLastContainer)).addView(synopsisValue);
+            ((LinearLayout) findViewById(R.id.animeViewMainInfo)).addView(score);
+
+            findViewById(R.id.animeViewUpdate).setVisibility(View.GONE);
+            findViewById(R.id.animeViewDelete).setVisibility(View.GONE);
+            findViewById(R.id.animeViewMyScoreLayout).setVisibility(View.GONE);
+            findViewById(R.id.animeViewMyStatusLayout).setVisibility(View.GONE);
+        }
     }
     // mode: 0_add 1_update 2_delete
     void animeRequest(int mode) {
